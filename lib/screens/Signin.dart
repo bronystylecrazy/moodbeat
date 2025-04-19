@@ -18,9 +18,7 @@ class Signin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Sigmin(),
-    );
+    return MaterialApp(home: Sigmin());
   }
 }
 
@@ -44,10 +42,10 @@ class _SigminState extends State<Sigmin> {
     try {
       // Authenticate user with Spotify
       final result = await FlutterWebAuth2.authenticate(
-          url: url,
-          callbackUrlScheme:
-              "YOUR_CALLBACK_SCHEME" // Replace with your actual callback URL scheme
-          );
+        url: url,
+        callbackUrlScheme:
+            "YOUR_CALLBACK_SCHEME", // Replace with your actual callback URL scheme
+      );
 
       // Extract the code from the result
       final code = Uri.parse(result).queryParameters['code'];
@@ -56,9 +54,7 @@ class _SigminState extends State<Sigmin> {
         // Exchange code for an access token
         final tokenResponse = await http.post(
           Uri.parse(tokenEndpoint),
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
+          headers: {"Content-Type": "application/x-www-form-urlencoded"},
           body: {
             "grant_type": "authorization_code",
             "code": code,
@@ -95,9 +91,7 @@ class _SigminState extends State<Sigmin> {
   Future<void> _fetchUserProfile(String accessToken) async {
     final response = await http.get(
       Uri.parse("https://api.spotify.com/v1/me"),
-      headers: {
-        "Authorization": "Bearer $accessToken",
-      },
+      headers: {"Authorization": "Bearer $accessToken"},
     );
 
     if (response.statusCode == 200) {
@@ -113,18 +107,21 @@ class _SigminState extends State<Sigmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("assets/images/Head.png",
-                width: 250, filterQuality: FilterQuality.high),
-            const SizedBox(height: 70),
-            isLoading
-                ? const CircularProgressIndicator()
-                : ElevatedButton.icon(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/Head.png",
+                width: 250,
+                filterQuality: FilterQuality.high,
+              ),
+              const SizedBox(height: 70),
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton.icon(
                     onPressed: () => _loginWithSpotify(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF9188F7),
@@ -146,23 +143,28 @@ class _SigminState extends State<Sigmin> {
                       ),
                     ),
                     label: const Text(
-                      "Continue with Spotify",
+                      "Continue with Spotified",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700),
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-            const SizedBox(height: 10),
-            isLoading
-                ? const CircularProgressIndicator()
-                : ElevatedButton.icon(
+              const SizedBox(height: 10),
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Q1();
-                      }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Q1();
+                          },
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -193,9 +195,10 @@ class _SigminState extends State<Sigmin> {
                       ),
                     ),
                   ),
-          ],
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
