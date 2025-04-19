@@ -13,58 +13,72 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        width: 75, // Adjust the width of the button
-        height: 75, // Adjust the height of the button
+      floatingActionButton: SizedBox(
+        height: 90,
+        width: 90,
         child: FloatingActionButton(
           shape: const CircleBorder(),
           backgroundColor: Colors.black,
-          child: const Icon(Icons.add, color: Colors.white),
+          child: const Icon(Icons.add, size: 60, color: Colors.white),
           onPressed: () {},
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-            bottom: 10), // Adjust padding to fine-tune position
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(32),
+            topRight: Radius.circular(32),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              spreadRadius: 1,
+              blurRadius: 10,
+            ),
+          ],
+        ),
         child: BottomAppBar(
+          color: const Color.fromARGB(0, 255, 255, 255),
+          elevation: 0,
           shape: const CircularNotchedRectangle(),
-          notchMargin: 15,
+          notchMargin: 10,
           child: SizedBox(
             height: 77,
             child: Row(
               children: [
-                // Empty Box for the 1st position
                 const Spacer(),
-                // 2nd Position - Home Icon
                 IconButton(
-                  icon: Icon(Icons.home_rounded,
-                      size: 27, // Adjusting the size of the home icon
-                      color:
-                          _selectedTab == 'home' ? Colors.black : Colors.grey),
+                  icon: Icon(
+                    Icons.home_rounded,
+                    size: 35,
+                    color:
+                        _selectedTab == 'home'
+                            ? const Color.fromARGB(255, 0, 0, 0)
+                            : Colors.grey,
+                  ),
                   onPressed: () {
                     setState(() {
                       _selectedTab = 'home';
                     });
                   },
                 ),
-                const Spacer(),
-                // Empty Box for the 3rd position (floating action button in center)
-                const Spacer(),
-                // 4th Position - Profile Icon
+                const Spacer(flex: 5),
                 IconButton(
-                  icon: Icon(Icons.account_circle_rounded,
-                      size: 27, // Adjusting the size of the profile icon
-                      color: _selectedTab == 'profile'
-                          ? Colors.purple
-                          : Colors.grey),
+                  icon: Icon(
+                    Icons.account_circle_rounded,
+                    size: 35,
+                    color:
+                        _selectedTab == 'profile'
+                            ? const Color.fromARGB(255, 0, 0, 0)
+                            : Colors.grey,
+                  ),
                   onPressed: () {
                     setState(() {
                       _selectedTab = 'profile';
                     });
                   },
                 ),
-                const Spacer(),
-                // Empty Box for the 5th position
                 const Spacer(),
               ],
             ),
@@ -74,17 +88,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Stack(
         children: [
           ListView(
-            padding: EdgeInsets.only(top: 75),
+            padding: const EdgeInsets.only(top: 75),
             children: [
               _buildProfileSection(),
+              const SizedBox(height: 24),
               _buildSectionTitle('Customisation'),
               _buildListTile(Icons.text_fields, 'Font Style', 'Default'),
               _buildListTile(Icons.wallpaper, 'Background', 'Default'),
               _buildSectionTitle('Setting'),
-              _buildNextTile(Icons.music_note, 'Music Preference',
-                  Icons.arrow_forward_ios),
               _buildNextTile(
-                  Icons.person_off, 'Hide Artist', Icons.arrow_forward_ios),
+                Icons.music_note,
+                'Music Preference',
+                Icons.arrow_forward_ios,
+              ),
+              _buildNextTile(
+                Icons.person_off,
+                'Hide Artist',
+                Icons.arrow_forward_ios,
+              ),
               _buildLanguageTile(),
               _buildNotificationToggle(),
               _buildSectionTitle('About Us'),
@@ -102,8 +123,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Icon(icon1, color: const Color(0xFF9188F7)),
       title: Text(
         title,
-        style: TextStyle(
-          color: const Color(0xFF3F3F3F),
+        style: const TextStyle(
+          color: Color(0xFF3F3F3F),
           fontSize: 16,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w400,
@@ -120,16 +141,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         height: 80,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: const Color(0xFFFFFBF0E5),
+          color: const Color(0xFFFFFBF0),
           borderRadius: BorderRadius.circular(16),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: ListTile(
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               backgroundImage: AssetImage('assets/images/profile.png'),
             ),
-            title: Text(
+            title: const Text(
               'Happy',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
@@ -138,8 +159,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 color: Color(0xFF9188F7),
               ),
             ),
-            trailing: Icon(Icons.arrow_forward_ios,
-                size: 16, color: Color(0xFF9188F7)),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+              color: Color(0xFF9188F7),
+            ),
             onTap: () {},
           ),
         ),
@@ -152,8 +176,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(
         title,
-        style: TextStyle(
-          color: const Color(0xFF3F3F3F),
+        style: const TextStyle(
+          color: Color(0xFF3F3F3F),
           fontSize: 18,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w700,
@@ -167,8 +191,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Icon(icon1, color: const Color(0xFF9188F7)),
       title: Text(
         title,
-        style: TextStyle(
-          color: const Color(0xFF3F3F3F),
+        style: const TextStyle(
+          color: Color(0xFF3F3F3F),
           fontSize: 16,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w400,
@@ -180,43 +204,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildListTile(IconData icon, String title, [String? subtitle]) {
     return ListTile(
-      leading: Icon(icon, color: Color(0xFF9188F7)),
+      leading: Icon(icon, color: const Color(0xFF9188F7)),
       title: Text(
         title,
-        style: TextStyle(
-          color: const Color(0xFF3F3F3F),
+        style: const TextStyle(
+          color: Color(0xFF3F3F3F),
           fontSize: 16,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w400,
         ),
       ),
-      trailing: subtitle != null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  subtitle,
-                  style: TextStyle(
+      trailing:
+          subtitle != null
+              ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xFFCECDCD),
-                      fontWeight: FontWeight.w400),
-                ),
-                Icon(Icons.arrow_forward_ios,
-                    size: 16, color: Color(0xFFCECDCD)),
-              ],
-            )
-          : null,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: Color(0xFFCECDCD),
+                  ),
+                ],
+              )
+              : null,
       onTap: () {},
     );
   }
 
   Widget _buildLanguageTile() {
     return ListTile(
-      leading: Icon(Icons.language, color: Color(0xFF9188F7)),
-      title: Text(
+      leading: const Icon(Icons.language, color: Color(0xFF9188F7)),
+      title: const Text(
         'Language',
         style: TextStyle(
-          color: const Color(0xFF3F3F3F),
+          color: Color(0xFF3F3F3F),
           fontSize: 16,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w400,
@@ -231,22 +260,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'TH',
               style: TextStyle(
                 fontSize: 16,
-                color: _selectedLanguage == 'TH'
-                    ? Color(0xFF9188F7)
-                    : Color(0xFFCECDCD),
+                color:
+                    _selectedLanguage == 'TH'
+                        ? const Color(0xFF9188F7)
+                        : const Color(0xFFCECDCD),
               ),
             ),
           ),
-          Text(' | ', style: TextStyle(fontSize: 16, color: Color(0xFFCECDCD))),
+          const Text(
+            ' | ',
+            style: TextStyle(fontSize: 16, color: Color(0xFFCECDCD)),
+          ),
           GestureDetector(
             onTap: () => _changeLanguage('EN'),
             child: Text(
               'EN',
               style: TextStyle(
                 fontSize: 16,
-                color: _selectedLanguage == 'EN'
-                    ? Color(0xFF9188F7)
-                    : Color(0xFFCECDCD),
+                color:
+                    _selectedLanguage == 'EN'
+                        ? const Color(0xFF9188F7)
+                        : const Color(0xFFCECDCD),
               ),
             ),
           ),
@@ -263,8 +297,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildNotificationToggle() {
     return SwitchListTile(
-      secondary: Icon(Icons.notifications, color: Color(0xFF9188F7)),
-      title: Text('Notification'),
+      secondary: const Icon(Icons.notifications, color: Color(0xFF9188F7)),
+      title: const Text('Notification'),
       value: true,
       onChanged: (bool value) {},
     );
