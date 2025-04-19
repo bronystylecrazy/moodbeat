@@ -4,6 +4,8 @@ import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 const String clientId = "YOUR_SPOTIFY_CLIENT_ID";
 const String redirectUri = "YOUR_REDIRECT_URI";
 const String authorizationEndpoint = "https://accounts.spotify.com/authorize";
@@ -31,6 +33,16 @@ class _SigminState extends State<Sigmin> {
   bool isLoading = false;
 
   Future<void> _loginWithSpotify(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('token') != null) {
+      // If token is already stored, fetch user profile
+      String token = prefs.getString('token')!;
+      // await _fetchUserProfile(accessToken);
+      print("Token already exists: $token");
+      return;
+    }
+
     setState(() {
       isLoading = true; // Show loading indicator
     });
@@ -42,42 +54,15 @@ class _SigminState extends State<Sigmin> {
     try {
       // Authenticate user with Spotify
       final result = await FlutterWebAuth2.authenticate(
-        url: url,
-        callbackUrlScheme:
-            "YOUR_CALLBACK_SCHEME", // Replace with your actual callback URL scheme
+        url: "https://d2f342b322090cbb.platform.connectedtech.dev/authorize",
+        callbackUrlScheme: "moodbeat",
       );
 
-      // Extract the code from the result
-      final code = Uri.parse(result).queryParameters['code'];
+      final token = Uri.parse(result).queryParameters['token'];
 
-      if (code != null) {
-        // Exchange code for an access token
-        final tokenResponse = await http.post(
-          Uri.parse(tokenEndpoint),
-          headers: {"Content-Type": "application/x-www-form-urlencoded"},
-          body: {
-            "grant_type": "authorization_code",
-            "code": code,
-            "redirect_uri": redirectUri,
-            "client_id": clientId,
-            "client_secret":
-                "YOUR_SPOTIFY_CLIENT_SECRET", // Replace with your actual client secret
-          },
-        );
+      prefs.setString('token', token!);
 
-        final tokenData = json.decode(tokenResponse.body);
-
-        if (tokenData['access_token'] != null) {
-          final accessToken = tokenData['access_token'];
-          print("Access Token: $accessToken");
-
-          // You can now make API requests to Spotify using the access token
-          // For example, get user's profile info:
-          _fetchUserProfile(accessToken);
-        } else {
-          print("Failed to retrieve access token");
-        }
-      }
+      print(token);
     } catch (e) {
       print("Error during authentication: $e");
     } finally {

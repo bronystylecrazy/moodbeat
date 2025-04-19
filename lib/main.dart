@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_query/flutter_query.dart';
 import 'package:moodbeat/screens/Finish.dart';
 import 'package:moodbeat/screens/FontStyle.dart';
 import 'package:moodbeat/screens/MusicPre.dart';
@@ -134,19 +135,24 @@ class moodSelection {
   };
 }
 
-// void main() {
-//   runApp(
-//     MaterialApp(
-//       title: "MoodBeat",
-//       home: FontStylePage(),
-//       theme: ThemeData(
-//         fontFamily: 'Montserrat', // Apply Montserrat font globally
-//         scaffoldBackgroundColor: Colors.white, // Set background color globally
-//       ),
-//     ),
-//   );
-// }
-
 void main() {
-  runApp(MaterialApp(home: Signin()));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    QueryScope(
+      child: MaterialApp(
+        title: "MoodBeat",
+        home: AccountPage(),
+        theme: ThemeData(
+          fontFamily: 'Montserrat', // Apply Montserrat font globally
+          scaffoldBackgroundColor:
+              Colors.white, // Set background color globally
+        ),
+      ),
+    ),
+  );
 }
+
+// void main() {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   runApp(MaterialApp(home: AccountPage()));
+// }

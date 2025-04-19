@@ -43,20 +43,13 @@ class _AccountPageState extends State<AccountPage> {
               child: CircleAvatar(
                 radius: 40,
                 backgroundColor: Color(0x919188F7),
-                child: Icon(
-                  Icons.face,
-                  size: 50,
-                  color: Colors.white,
-                ),
+                child: Icon(Icons.face, size: 50, color: Colors.white),
               ),
             ),
             SizedBox(height: 20),
             Text(
               'Profile',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             _buildProfileRow('Name', userName),
@@ -68,13 +61,23 @@ class _AccountPageState extends State<AccountPage> {
                 onPressed: () {
                   // Implement log out functionality here
                 },
-                child: Text('Log out',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Log out',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor:
-                      const Color.fromARGB(255, 0, 0, 0), // Black text
+                  foregroundColor: const Color.fromARGB(
+                    255,
+                    0,
+                    0,
+                    0,
+                  ), // Black text
                   backgroundColor: const Color.fromARGB(
-                      255, 255, 255, 255), // White background
+                    255,
+                    255,
+                    255,
+                    255,
+                  ), // White background
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -95,10 +98,7 @@ class _AccountPageState extends State<AccountPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
-          ),
+          Text(label, style: TextStyle(fontFamily: 'Montserrat', fontSize: 16)),
           SizedBox(width: 10), // Reduced space between label and value
           Expanded(
             child: Align(
