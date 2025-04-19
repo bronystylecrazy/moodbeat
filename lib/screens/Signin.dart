@@ -143,7 +143,7 @@ class _SigminState extends State<Sigmin> {
                       ),
                     ),
                     label: const Text(
-                      "Continue with Spotified",
+                      "Continue with Spotify",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
