@@ -1,21 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_query/flutter_query.dart';
-import 'package:moodbeat/core/services/dio_provider.dart';
 import 'package:moodbeat/router.dart';
-import 'package:moodbeat/screens/Finish.dart';
-import 'package:moodbeat/screens/FontStyle.dart';
-import 'package:moodbeat/screens/MusicPre.dart';
-import 'package:moodbeat/screens/Q1.dart';
-import 'package:moodbeat/screens/Q2.dart';
-import 'package:moodbeat/screens/Q3.dart';
-import 'package:moodbeat/screens/Settings.dart';
-import 'package:moodbeat/screens/SignIn.dart';
-import 'package:moodbeat/screens/hidden.dart';
-import 'package:moodbeat/screens/SignUp.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodbeat/service_locator.dart';
-import 'package:moodbeat_core/moodbeat_core.dart';
 
 class AppColors {
   static const Color defualtColor = Color(0xFF9188F7);
@@ -147,6 +133,7 @@ void main() async {
       child: MaterialApp.router(
         title: "MoodBeat",
         routerConfig: router,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Montserrat', // Apply Montserrat font globally
           scaffoldBackgroundColor:
