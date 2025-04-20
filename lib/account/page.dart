@@ -22,6 +22,7 @@ class AccountPage extends HookWidget {
     final displayName = userState?.data?.displayName ?? '';
     final email = userState?.data?.email ?? '';
     final avatarUrl = userState?.data?.avatarUrl ?? '';
+    final product = userState?.data?.product ?? '';
 
     return Scaffold(
       appBar: AppBar(
@@ -77,6 +78,9 @@ class AccountPage extends HookWidget {
             isLoading
                 ? const SkeletonRow(label: 'E-mail')
                 : ProfileRow(label: 'E-mail', value: email),
+            isLoading
+                ? const SkeletonRow(label: 'Subscription')
+                : ProfileRow(label: 'Subscription', value: product),
             const SizedBox(height: 20),
             const Center(child: LogoutButton()),
           ],
