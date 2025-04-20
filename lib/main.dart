@@ -14,7 +14,6 @@ import 'package:moodbeat/screens/SignIn.dart';
 import 'package:moodbeat/screens/hidden.dart';
 import 'package:moodbeat/screens/SignUp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:moodbeat/screens/Account.dart';
 import 'package:moodbeat/service_locator.dart';
 import 'package:moodbeat_core/moodbeat_core.dart';
 
@@ -143,19 +142,6 @@ class moodSelection {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
-  MoodbeatCore moodbeatCore = MoodbeatCore(dio: getIt.get<Dio>());
-  AuthApi authApi = AuthApi(moodbeatCore.dio, moodbeatCore.serializers);
-
-  authApi.getCurrentProfile().then((response) {
-    if (response.statusCode == 200) {
-      print("User profile fetched successfully");
-    } else {
-      print("Failed to fetch user profile");
-    }
-  }).catchError((error) {
-    print("Error fetching user profile: $error");
-  });
-
   runApp(
     QueryScope(
       child: MaterialApp.router(

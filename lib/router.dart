@@ -1,6 +1,6 @@
 // app_router.dart
 import 'package:go_router/go_router.dart';
-import 'package:moodbeat/screens/Account.dart';
+import 'package:moodbeat/account/page.dart';
 import 'package:moodbeat/screens/SignUp.dart';
 
 final GoRouter router = GoRouter(

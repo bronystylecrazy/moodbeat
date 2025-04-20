@@ -107,79 +107,80 @@ class _SigminState extends State<Sigmin> {
               isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton.icon(
-                    onPressed: () => _loginWithSpotify(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF9188F7),
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        side: const BorderSide(
-                          color: Color(0xFF7A28C8),
-                          width: 1,
+                      onPressed: () => _loginWithSpotify(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF9188F7),
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: const BorderSide(
+                            color: Color(0xFF7A28C8),
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      icon: ClipOval(
+                        child: Image.asset(
+                          "assets/images/Spotify.png",
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      label: const Text(
+                        "Continue with Spotify",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
-                    icon: ClipOval(
-                      child: Image.asset(
-                        "assets/images/Spotify.png",
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    label: const Text(
-                      "Continue with Spotify",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
               const SizedBox(height: 10),
               isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Q1();
-                          },
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Q1();
+                            },
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: const BorderSide(
+                            color: Color(0xFF9188F7),
+                            width: 1,
+                          ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        side: const BorderSide(
+                      ),
+                      icon: ClipOval(
+                        child: Image.asset(
+                          "assets/images/incognito.png",
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      label: const Text(
+                        "Continue  as  Guest ",
+                        style: TextStyle(
                           color: Color(0xFF9188F7),
-                          width: 1,
+                          fontSize: 16,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
-                    icon: ClipOval(
-                      child: Image.asset(
-                        "assets/images/incognito.png",
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    label: const Text(
-                      "Continue  as  Guest ",
-                      style: TextStyle(
-                        color: Color(0xFF9188F7),
-                        fontSize: 16,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
             ],
           ),
         ),
