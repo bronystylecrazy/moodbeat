@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:moodbeat/core/services/api_service.dart';
+import 'package:moodbeat/service_locator.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -8,6 +10,22 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   String userName = 'Happy'; // Initial user name
+
+  late final ApiService api;
+
+  @override
+  void initState() {
+    super.initState();
+    api = getIt<ApiService>(); // or getIt<ApiService>();
+    api
+        .get("/health")
+        .then((value) {
+          print(value.data);
+        })
+        .catchError((error) {
+          print("Error: $error");
+        });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_query/flutter_query.dart';
+import 'package:moodbeat/core/services/dio_provider.dart';
 import 'package:moodbeat/screens/Finish.dart';
 import 'package:moodbeat/screens/FontStyle.dart';
 import 'package:moodbeat/screens/MusicPre.dart';
@@ -12,6 +13,7 @@ import 'package:moodbeat/screens/hidden.dart';
 import 'package:moodbeat/screens/SignUp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodbeat/screens/Account.dart';
+import 'package:moodbeat/service_locator.dart';
 
 class AppColors {
   static const Color defualtColor = Color(0xFF9188F7);
@@ -135,8 +137,10 @@ class moodSelection {
   };
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+
   runApp(
     QueryScope(
       child: MaterialApp(
