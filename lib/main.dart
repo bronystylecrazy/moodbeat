@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_query/flutter_query.dart';
 import 'package:moodbeat/core/services/dio_provider.dart';
+import 'package:moodbeat/router.dart';
 import 'package:moodbeat/screens/Finish.dart';
 import 'package:moodbeat/screens/FontStyle.dart';
 import 'package:moodbeat/screens/MusicPre.dart';
@@ -14,6 +16,7 @@ import 'package:moodbeat/screens/SignUp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodbeat/screens/Account.dart';
 import 'package:moodbeat/service_locator.dart';
+import 'package:moodbeat_core/moodbeat_core.dart';
 
 class AppColors {
   static const Color defualtColor = Color(0xFF9188F7);
@@ -140,12 +143,24 @@ class moodSelection {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
+  MoodbeatCore moodbeatCore = MoodbeatCore(dio: getIt.get<Dio>());
+  AuthApi authApi = AuthApi(moodbeatCore.dio, moodbeatCore.serializers);
+
+  authApi.getCurrentProfile().then((response) {
+    if (response.statusCode == 200) {
+      print("User profile fetched successfully");
+    } else {
+      print("Failed to fetch user profile");
+    }
+  }).catchError((error) {
+    print("Error fetching user profile: $error");
+  });
 
   runApp(
     QueryScope(
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: "MoodBeat",
-        home: AccountPage(),
+        routerConfig: router,
         theme: ThemeData(
           fontFamily: 'Montserrat', // Apply Montserrat font globally
           scaffoldBackgroundColor:

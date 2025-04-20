@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:moodbeat/core/services/api_service.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodbeat/service_locator.dart';
+import 'package:moodbeat_core/moodbeat_core.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -11,20 +12,21 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   String userName = 'Happy'; // Initial user name
 
-  late final ApiService api;
+  late final AuthApi api = getIt<AuthApi>();
 
   @override
   void initState() {
     super.initState();
-    api = getIt<ApiService>(); // or getIt<ApiService>();
-    api
-        .get("/health")
-        .then((value) {
-          print(value.data);
-        })
-        .catchError((error) {
-          print("Error: $error");
+    api.getCurrentProfile().then((response) {
+      if (response != null) {
+        setState(() {
+          userName = response.data?.displayName ?? 'Happy'; // Update user name
         });
+      }
+    }).catchError((error) {
+      // Handle error
+      print('Error fetching profile: $error');
+    });
   }
 
   @override
@@ -78,6 +80,7 @@ class _AccountPageState extends State<AccountPage> {
               child: ElevatedButton(
                 onPressed: () {
                   // Implement log out functionality here
+                  context.go("/");
                 },
                 child: Text(
                   'Log out',
