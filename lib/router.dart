@@ -6,7 +6,7 @@ import 'package:moodbeat/screens/Settings.dart';
 import 'package:moodbeat/screens/Signin.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: "/setting",
+  initialLocation: "/",
   routes: [
     GoRoute(
       path: '/',

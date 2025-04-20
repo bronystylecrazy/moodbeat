@@ -49,7 +49,7 @@ class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
       setState(() {
         _currentMood = selectedMood;
       });
-       widget.onMoodChanged();
+      widget.onMoodChanged();
     }
   }
 
@@ -92,7 +92,8 @@ class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
                       height: 133,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(moodImages[_currentMood] ?? 'asset/images/joy.png'),
+                          image: AssetImage(moodImages[_currentMood] ??
+                              'assets/images/joy.png'),
                           fit: BoxFit.cover,
                         ),
                       ),

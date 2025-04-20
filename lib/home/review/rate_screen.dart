@@ -33,7 +33,8 @@ class _RateScreenState extends State<RateScreen> {
 
   void _navigateToReviewScreen() {
     Navigator.of(context).push(
-      MaterialPageRoute( // Use MaterialPageRoute instead of PageRouteBuilder
+      MaterialPageRoute(
+        // Use MaterialPageRoute instead of PageRouteBuilder
         builder: (context) => ReviewScreen(
           initialRating: _selectedRating,
           imageUrl: widget.imageUrl,
@@ -113,7 +114,8 @@ class _RateScreenState extends State<RateScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          DateFormat('dd MMMM yyyy').format(widget.playlistDate),
+                          DateFormat('dd MMMM yyyy')
+                              .format(widget.playlistDate),
                           style: const TextStyle(
                             color: AppColors.textColor,
                             fontSize: 14,
@@ -150,11 +152,12 @@ class _RateScreenState extends State<RateScreen> {
                                     }
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6),
                                     child: Image.asset(
                                       _selectedRating >= i
-                                          ? 'asset/images/star_filled.png'
-                                          : 'asset/images/star.png',
+                                          ? 'assets/images/star_filled.png'
+                                          : 'assets/images/star.png',
                                       width: 32,
                                       height: 32,
                                       color: AppColors.ascent,

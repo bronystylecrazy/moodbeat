@@ -52,8 +52,8 @@ class SaveConfirmationOverlay extends StatelessWidget {
                     height: 132,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(
-                            moodImages[selectedMood] ?? 'asset/images/joy.png'),
+                        image: AssetImage(moodImages[selectedMood] ??
+                            'assets/images/joy.png'),
                         // Display the mood image
                         fit: BoxFit.cover,
                       ),
@@ -68,7 +68,7 @@ class SaveConfirmationOverlay extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.textColor,
                         fontSize: 16,
-                        fontFamily:AppTextStyles.primaryFontFamily,
+                        fontFamily: AppTextStyles.primaryFontFamily,
                         fontWeight: FontWeight.w600,
                         letterSpacing: -0.32,
                       ),

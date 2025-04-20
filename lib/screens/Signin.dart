@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodbeat/screens/Q1.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:http/http.dart' as http;
+import 'package:moodbeat/test.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,6 +92,7 @@ class _SigminState extends State<Sigmin> {
 
   @override
   Widget build(BuildContext context) {
+    print("sign in rerendered");
     return Scaffold(
       body: Center(
         child: Padding(
@@ -127,15 +129,16 @@ class _SigminState extends State<Sigmin> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      label: const Text(
-                        "Continue with Spotify",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      label: Test(),
+                      // label: const Text(
+                      //   "Continue with Spotify",
+                      //   style: TextStyle(
+                      //     color: Colors.white,
+                      //     fontSize: 16,
+                      //     fontFamily: 'Montserrat',
+                      //     fontWeight: FontWeight.w700,
+                      //   ),
+                      // ),
                     ),
               const SizedBox(height: 10),
               isLoading

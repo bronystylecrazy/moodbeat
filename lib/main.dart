@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_query/flutter_query.dart';
+import 'package:moodbeat/home/calendar/calendar.dart';
 import 'package:moodbeat/router.dart';
+import 'package:moodbeat/screens/SignUp.dart';
 import 'package:moodbeat/service_locator.dart';
 
 class AppColors {
@@ -114,37 +116,44 @@ class AppButtonStyle {
 
 class moodSelection {
   static const Map<String, String> moodImages = {
-    'Joy': 'asset/images/joy.png',
-    'Surprise': 'asset/images/surprise.png',
-    'Expecting': 'asset/images/expecting.png',
-    'Trust': 'asset/images/trust.png',
-    'Disgust': 'asset/images/disgust.png',
-    'Anger': 'asset/images/angry.png',
-    'Fear': 'asset/images/fear.png',
-    'Sad': 'asset/images/sad.png',
+    'Joy': 'assets/images/joy.png',
+    'Surprise': 'assets/images/surprise.png',
+    'Expecting': 'assets/images/expecting.png',
+    'Trust': 'assets/images/trust.png',
+    'Disgust': 'assets/images/disgust.png',
+    'Anger': 'assets/images/angry.png',
+    'Fear': 'assets/images/fear.png',
+    'Sad': 'assets/images/sad.png',
   };
 }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
-  runApp(
-    QueryScope(
-      child: MaterialApp.router(
-        title: "MoodBeat",
-        routerConfig: router,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Montserrat', // Apply Montserrat font globally
-          scaffoldBackgroundColor:
-              Colors.white, // Set background color globally
-        ),
-      ),
-    ),
-  );
-}
-
-// void main() {
+// void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
-//   runApp(MaterialApp(home: AccountPage()));
+//   await configureDependencies();
+//   runApp(
+//     QueryScope(
+//       child: MaterialApp.router(
+//         title: "MoodBeat",
+//         routerConfig: router,
+//         debugShowCheckedModeBanner: false,
+//         theme: ThemeData(
+//           fontFamily: 'Montserrat', // Apply Montserrat font globally
+//           scaffoldBackgroundColor:
+//               Colors.white, // Set background color globally
+//         ),
+//       ),
+//     ),
+//   );
 // }
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+      home: Scaffold(
+    backgroundColor: Colors.white,
+    body: Container(
+      padding: EdgeInsets.fromLTRB(16, 67, 16, 0),
+      child: MyCalendarScreen(),
+    ),
+  )));
+}

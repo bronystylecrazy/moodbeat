@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:moodbeat/home/monthly_report/banner_report.dart';
 import 'package:moodbeat/mood_selection_screen.dart';
 import 'package:moodbeat/main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,17 +22,20 @@ class _MyCalendarScreenState extends State<MyCalendarScreen> {
   // Function to handle adding a mood
   void _addMoodForDate(DateTime date) async {
     print('Adding mood for: ${DateFormat('yyyy-MM-dd').format(date)}');
+    try {
+      // Use the createSlideUpRoute function
+      final selectedMood = await Navigator.push(
+        context,
+        createSlideUpRoute(MoodSelectionScreen(date: date)),
+      );
 
-    // Use the createSlideUpRoute function
-    final selectedMood = await Navigator.push(
-      context,
-      createSlideUpRoute(MoodSelectionScreen(date: date)),
-    );
-
-    if (selectedMood != null) {
-      setState(() {
-        _markedDates[date] = selectedMood;
-      });
+      if (selectedMood != null) {
+        setState(() {
+          _markedDates[date] = selectedMood;
+        });
+      }
+    } catch (e) {
+      print("Error: $e");
     }
   }
 
@@ -107,62 +111,59 @@ class _MyCalendarScreenState extends State<MyCalendarScreen> {
   // Function to build a single date cell
   Widget _buildDateCell(DateTime date) {
     final markedMood = _markedDates[date];
-    final _ = date.year == DateTime.now().year &&
-        date.month == DateTime.now().month &&
-        date.day == DateTime.now().day;
     final isSelected = date.year == _currentDate.year &&
         date.month == _currentDate.month &&
         date.day == _currentDate.day;
     final isCurrentMonth = date.month == _currentMonth.month;
 
     return GestureDetector(
-      onTap: () {
-        _addMoodForDate(date);
-      },
-      child: SizedBox.expand(
+      onTap: () => _addMoodForDate(date),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minHeight: 100,
+          maxHeight: 100, // Prevents overflow
+        ),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 2),
-              Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      markedMood != null ? Colors.transparent : AppColors.cream,
-                ),
-                child: markedMood != null
-                    ? Container(
-                        child: Image.asset(moodImages[markedMood]!),
-                      )
-                    : null,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color:
+                    markedMood != null ? Colors.transparent : AppColors.cream,
               ),
-              const SizedBox(height: 2),
-              Text(
-                date.day.toString(),
-                style: TextStyle(
-                  fontFamily: AppTextStyles.primaryFontFamily,
-                  fontSize: 15,
-                  color: isSelected
-                      ? AppColors.defualtColor
-                      : isCurrentMonth
-                          ? AppColors.textColor
-                          : AppColors.defualtColor,
-                  fontWeight: isSelected
-                      ? FontWeight.w800
-                      : AppTextStyles.body2.fontWeight,
-                ),
-              )
-            ]),
+              child: markedMood != null
+                  ? Image.asset(moodImages[markedMood]!)
+                  : null,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              date.day.toString(),
+              style: TextStyle(
+                fontFamily: AppTextStyles.primaryFontFamily,
+                fontSize: 14,
+                color: isSelected
+                    ? AppColors.defualtColor
+                    : isCurrentMonth
+                        ? AppColors.textColor
+                        : AppColors.defualtColor,
+                fontWeight: isSelected
+                    ? FontWeight.w800
+                    : AppTextStyles.body2.fontWeight,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
   // Function to build the calendar grid
   List<Widget> _buildCalendarDays() {
-    final firstDayOfMonth = DateTime(_currentMonth.year, _currentMonth.month, 1);
+    final firstDayOfMonth =
+        DateTime(_currentMonth.year, _currentMonth.month, 1);
     final daysInMonth =
         DateTime(_currentMonth.year, _currentMonth.month + 1, 0).day;
     final firstWeekdayOfMonth = firstDayOfMonth.weekday % 7;
@@ -183,22 +184,29 @@ class _MyCalendarScreenState extends State<MyCalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildHeader(),
-        const SizedBox(height: 16),
-        _buildWeekdayLabels(),
-        Expanded(
-          child: GridView.count(
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 16),
+          _buildWeekdayLabels(),
+          GridView.count(
             crossAxisCount: 7,
             shrinkWrap: true,
+            childAspectRatio: 0.6,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.only(top: 20),
             children: _buildCalendarDays(),
           ),
-        ),
-      ],
+          const SizedBox(height: 16),
+          ReportBanner(
+            date: DateTime(2001),
+          ),
+        ],
+      ),
     );
   }
 }

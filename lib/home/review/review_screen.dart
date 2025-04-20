@@ -51,8 +51,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
     } else {
       _reviewController.text =
           _reviewController.text.substring(0, _maxCharacterCount);
-      _reviewController.selection = TextSelection.fromPosition(
-          TextPosition(offset: _maxCharacterCount));
+      _reviewController.selection =
+          TextSelection.fromPosition(TextPosition(offset: _maxCharacterCount));
     }
   }
 
@@ -120,7 +120,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         const SizedBox(height: 8),
                         Center(
                           child: Text(
-                            DateFormat('dd MMMM yyyy').format(widget.playlistDate),
+                            DateFormat('dd MMMM yyyy')
+                                .format(widget.playlistDate),
                             style: const TextStyle(
                               color: AppColors.textColor,
                               fontSize: 14,
@@ -139,15 +140,17 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                 onTap: () {
                                   setState(() {
                                     _selectedRating = index + 1;
-                                    _selectedReasons.clear(); // Clear selected reasons when rating changes
+                                    _selectedReasons
+                                        .clear(); // Clear selected reasons when rating changes
                                   });
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 4.0),
                                   child: Image.asset(
                                     index < _selectedRating
-                                        ? 'asset/images/star_filled.png'
-                                        : 'asset/images/star.png',
+                                        ? 'assets/images/star_filled.png'
+                                        : 'assets/images/star.png',
                                     width: 24,
                                     height: 24,
                                     color: AppColors.ascent,
@@ -167,7 +170,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             runSpacing: 16,
                             // Vertical spacing between lines
                             children: reasons.map((reason) {
-                              final isSelected = _selectedReasons.contains(reason);
+                              final isSelected =
+                                  _selectedReasons.contains(reason);
                               return GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -200,7 +204,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                           ? Colors.white
                                           : AppColors.defualtColor,
                                       fontSize: 12,
-                                      fontFamily: AppTextStyles.primaryFontFamily,
+                                      fontFamily:
+                                          AppTextStyles.primaryFontFamily,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -224,7 +229,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         ),
                         const SizedBox(height: 16),
                         Padding(
-                          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                          padding:
+                              const EdgeInsets.only(left: 16.0, right: 16.0),
                           child: Container(
                             height: 160,
                             decoration: BoxDecoration(
@@ -243,7 +249,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                     hintStyle: TextStyle(
                                       color: AppColors.disableText,
                                       fontSize: 14,
-                                      fontFamily: AppTextStyles.primaryFontFamily,
+                                      fontFamily:
+                                          AppTextStyles.primaryFontFamily,
                                       fontWeight: FontWeight.w400,
                                     ),
                                     border: InputBorder.none,
@@ -254,13 +261,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                   bottom: 16,
                                   right: 16,
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
                                     child: Text(
                                       '$_characterCount/$_maxCharacterCount',
                                       style: const TextStyle(
                                         color: AppColors.disableText,
                                         fontSize: 12,
-                                        fontFamily: AppTextStyles.primaryFontFamily,
+                                        fontFamily:
+                                            AppTextStyles.primaryFontFamily,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -281,7 +290,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       onPressed: widget.onClose, // Use the onClose callback
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.button,
-                        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 64, vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),

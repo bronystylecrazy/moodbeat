@@ -12,8 +12,7 @@ class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({
     Key? key,
     required this.date,
-    this.description =
-        'High-energy beats to match your unstoppable mood!',
+    this.description = 'High-energy beats to match your unstoppable mood!',
   }) : super(key: key);
 
   @override
@@ -25,7 +24,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
   bool _showRateScreen = false;
-  String _playlistImageUrl = "asset/images/playlist_cover.png"; // Add playlist image url
+  String _playlistImageUrl =
+      "assets/images/playlist_cover.png"; // Add playlist image url
   //String _playlistName = "My Playlist"; // Remove playlist name
 
   @override

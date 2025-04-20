@@ -89,16 +89,11 @@ class ReportBanner extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              _buildMoodColumn(
-                                  "https://placehold.co/42x44", "60%"),
-                              _buildMoodColumn(
-                                  "https://placehold.co/36x40", "25%"),
-                              _buildMoodColumn(
-                                  "https://placehold.co/35x37", "5%"),
-                              _buildMoodColumn(
-                                  "https://placehold.co/37x37", "5%"),
-                              _buildMoodColumn(
-                                  "https://placehold.co/35x37", "5%"),
+                              _buildMoodColumn("assets/images/joy.png", "60%"),
+                              _buildMoodColumn("assets/images/joy.png", "25%"),
+                              _buildMoodColumn("assets/images/joy.png", "5%"),
+                              _buildMoodColumn("assets/images/joy.png", "5%"),
+                              _buildMoodColumn("assets/images/joy.png", "5%"),
                             ],
                           ),
                         ),
@@ -131,8 +126,8 @@ class ReportBanner extends StatelessWidget {
                                 child: Container(
                                   width: 27,
                                   height: 35,
-                                  decoration:
-                                      BoxDecoration(color: const Color(0xFFEFC2FF)),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFEFC2FF)),
                                 ),
                               ),
                               Positioned(
@@ -141,8 +136,8 @@ class ReportBanner extends StatelessWidget {
                                 child: Container(
                                   width: 28,
                                   height: 35,
-                                  decoration:
-                                      BoxDecoration(color: const Color(0xFFCEF1FF)),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFCEF1FF)),
                                 ),
                               ),
                               Positioned(
@@ -151,8 +146,8 @@ class ReportBanner extends StatelessWidget {
                                 child: Container(
                                   width: 83,
                                   height: 35,
-                                  decoration:
-                                      BoxDecoration(color: const Color(0xFFFF9A82)),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFFF9A82)),
                                 ),
                               ),
                               Positioned(
@@ -195,16 +190,22 @@ class ReportBanner extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            // width: width, // Remove fixed width
-            height: imageUrl == "https://placehold.co/42x44" ? 44 : imageUrl == "https://placehold.co/36x40" ? 40 : 37,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(imageUrl),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          // Container(
+          //   // width: width, // Remove fixed width
+          //   height: imageUrl == "https://placehold.co/42x44"
+          //       ? 44
+          //       : imageUrl == "https://placehold.co/36x40"
+          //           ? 40
+          //           : 37,
+          //   decoration: BoxDecoration(
+          //     image: DecorationImage(
+
+          //       // image: NetworkImage(imageUrl),
+          //       image: Image.asset(imageUrl).image,
+          //       fit: BoxFit.fill,
+          //     ),
+          //   ),
+          // ),
           const SizedBox(height: 10),
           Text(
             percentage,
@@ -213,7 +214,8 @@ class ReportBanner extends StatelessWidget {
               color: const Color(0xFF101010),
               fontSize: percentage == "60%" ? 14 : 10,
               fontFamily: 'Montserrat',
-              fontWeight: percentage == "60%" ? FontWeight.w700 : FontWeight.w500,
+              fontWeight:
+                  percentage == "60%" ? FontWeight.w700 : FontWeight.w500,
             ),
           ),
         ],

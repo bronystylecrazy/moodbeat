@@ -62,7 +62,7 @@ class _DiaryNavBarState extends State<DiaryNavBar> {
                 children: [
                   IconButton(
                     icon: Image.asset(
-                      'asset/images/Picture.png',
+                      'assets/images/Picture.png',
                       width: 24,
                       height: 24,
                       color: AppColors.button,
@@ -73,7 +73,7 @@ class _DiaryNavBarState extends State<DiaryNavBar> {
               ),
               IconButton(
                 icon: Image.asset(
-                  'asset/images/Save.png',
+                  'assets/images/Save.png',
                   width: 24,
                   height: 24,
                   color: AppColors.button,

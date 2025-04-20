@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Function to create a route with a slide-up animation (ease-out)
 PageRouteBuilder createSlideUpRoute(Widget page) {
+  print("Creating slide up route");
   return PageRouteBuilder(
     opaque: false,
     pageBuilder: (context, animation, secondaryAnimation) => page,
