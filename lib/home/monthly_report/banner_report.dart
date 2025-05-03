@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodbeat/mood_selection_screen.dart';
-import 'package:moodbeat/animation_wrapper.dart';
-import 'package:moodbeat/main.dart';
 
 class ReportBanner extends StatelessWidget {
   final DateTime date;
 
   const ReportBanner({Key? key, required this.date}) : super(key: key);
-
-  // void _navigateToMoodSelection(BuildContext context) async {
-  //   await Navigator.push(
-  //     context,
-  //     createSlideUpRoute(MoodSelectionScreen(date: date)),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,22 +180,21 @@ class ReportBanner extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Container(
-          //   // width: width, // Remove fixed width
-          //   height: imageUrl == "https://placehold.co/42x44"
-          //       ? 44
-          //       : imageUrl == "https://placehold.co/36x40"
-          //           ? 40
-          //           : 37,
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-
-          //       // image: NetworkImage(imageUrl),
-          //       image: Image.asset(imageUrl).image,
-          //       fit: BoxFit.fill,
-          //     ),
-          //   ),
-          // ),
+          Container(
+            // width: width, // Remove fixed width
+            height: imageUrl == "https://placehold.co/42x44"
+                ? 44
+                : imageUrl == "https://placehold.co/36x40"
+                    ? 40
+                    : 37,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                // image: NetworkImage(imageUrl),
+                image: Image.asset(imageUrl).image,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
           const SizedBox(height: 10),
           Text(
             percentage,

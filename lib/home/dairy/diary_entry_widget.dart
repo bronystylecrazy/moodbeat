@@ -1,60 +1,40 @@
-// lib/home/dairy/diary_entry_widget.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 import 'package:moodbeat/main.dart';
 import 'package:moodbeat/mood_selection_screen.dart';
 
-class DiaryEntryWidget extends StatefulWidget {
+class DiaryEntryWidget extends HookWidget {
   final DateTime date;
   final String initialMood;
   final VoidCallback onMoodChanged;
 
   const DiaryEntryWidget({
-    Key? key,
+    super.key,
     required this.date,
     required this.initialMood,
     required this.onMoodChanged,
-  }) : super(key: key);
-
-  @override
-  _DiaryEntryWidgetState createState() => _DiaryEntryWidgetState();
-}
-
-class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
-  late TextEditingController _diaryController;
-  late String _currentMood;
-  final Map<String, String> moodImages = moodSelection.moodImages;
-
-  @override
-  void initState() {
-    super.initState();
-    _diaryController = TextEditingController();
-    _currentMood = widget.initialMood;
-  }
-
-  @override
-  void dispose() {
-    _diaryController.dispose();
-    super.dispose();
-  }
-
-  void _navigateToMoodSelectionScreen() async {
-    final selectedMood = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MoodSelectionScreen(date: widget.date),
-      ),
-    );
-    if (selectedMood != null) {
-      setState(() {
-        _currentMood = selectedMood;
-      });
-      widget.onMoodChanged();
-    }
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
+    final diaryController = useTextEditingController();
+    final currentMood = useState(initialMood);
+    final moodImages = moodSelection.moodImages;
+
+    Future<void> navigateToMoodSelectionScreen() async {
+      final selectedMood = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MoodSelectionScreen(date: date),
+        ),
+      );
+      if (selectedMood != null) {
+        currentMood.value = selectedMood;
+        onMoodChanged();
+      }
+    }
+
     return Container(
       height: 500,
       decoration: const ShapeDecoration(
@@ -71,7 +51,7 @@ class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
-                DateFormat('dd MMMM yyyy').format(widget.date),
+                DateFormat('dd MMMM yyyy').format(date),
                 style: const TextStyle(
                   color: AppColors.textColor,
                   fontSize: 20,
@@ -84,7 +64,7 @@ class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
             const SizedBox(height: 30),
             Center(
               child: GestureDetector(
-                onTap: _navigateToMoodSelectionScreen,
+                onTap: navigateToMoodSelectionScreen,
                 child: Column(
                   children: [
                     Container(
@@ -92,15 +72,17 @@ class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
                       height: 133,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(moodImages[_currentMood] ??
-                              'assets/images/joy.png'),
+                          image: AssetImage(
+                            moodImages[currentMood.value] ??
+                                'assets/images/joy.png',
+                          ),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      _currentMood,
+                      currentMood.value,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Color(0xFF3F3F3F),
@@ -116,13 +98,19 @@ class _DiaryEntryWidgetState extends State<DiaryEntryWidget> {
             const SizedBox(height: 24),
             Expanded(
               child: TextField(
-                controller: _diaryController,
+                style: const TextStyle(
+                  color: AppColors.textColor,
+                  fontSize: 20,
+                  fontFamily: AppTextStyles.primaryFontFamily,
+                  fontWeight: FontWeight.w400,
+                ),
+                controller: diaryController,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'How was your day going?',
                   hintStyle: TextStyle(
                     color: AppColors.disableText,
-                    fontSize: 14,
+                    fontSize: 20,
                     fontFamily: AppTextStyles.primaryFontFamily,
                     fontWeight: FontWeight.w400,
                   ),

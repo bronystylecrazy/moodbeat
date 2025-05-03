@@ -1,42 +1,36 @@
-// lib/home/dairy/diary_nav_bar.dart
 import 'package:flutter/material.dart';
-import 'package:moodbeat/main.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:moodbeat/main.dart';
 
-class DiaryNavBar extends StatefulWidget {
+class DiaryNavBar extends HookWidget {
   final VoidCallback onSavePressed;
-  final Function(File?) onPictureSelected; // Callback for selected picture
+  final Function(File?) onPictureSelected;
 
   const DiaryNavBar({
-    Key? key,
+    super.key,
     required this.onSavePressed,
     required this.onPictureSelected,
-  }) : super(key: key);
-
-  @override
-  State<DiaryNavBar> createState() => _DiaryNavBarState();
-}
-
-class _DiaryNavBarState extends State<DiaryNavBar> {
-  File? _selectedImage;
-
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _selectedImage = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-    widget.onPictureSelected(_selectedImage); // Pass the selected image back
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
+    final selectedImage = useState<File?>(null);
+    final captionController = useTextEditingController();
+
+    Future<void> pickImage() async {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        selectedImage.value = File(pickedFile.path);
+        onPictureSelected(selectedImage.value);
+      } else {
+        print('No image selected.');
+      }
+    }
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -52,36 +46,34 @@ class _DiaryNavBarState extends State<DiaryNavBar> {
             )
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 6, 16, 32),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/images/Picture.png',
-                      width: 24,
-                      height: 24,
-                      color: AppColors.button,
-                    ),
-                    onPressed: _pickImage, // Call _pickImage
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Image.asset(
+                    'assets/images/Picture.png',
+                    width: 24,
+                    height: 24,
+                    color: AppColors.button,
                   ),
-                ],
-              ),
-              IconButton(
-                icon: Image.asset(
-                  'assets/images/Save.png',
-                  width: 24,
-                  height: 24,
-                  color: AppColors.button,
+                  onPressed: pickImage,
                 ),
-                onPressed: widget.onSavePressed,
-              ),
-            ],
-          ),
+                IconButton(
+                  icon: Image.asset(
+                    'assets/images/Save.png',
+                    width: 24,
+                    height: 24,
+                    color: AppColors.button,
+                  ),
+                  onPressed: onSavePressed,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

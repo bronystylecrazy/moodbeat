@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_query/flutter_query.dart';
 import 'package:moodbeat/home/calendar/calendar.dart';
 import 'package:moodbeat/router.dart';
-import 'package:moodbeat/screens/SignUp.dart';
+import 'package:moodbeat/screens/_SignUp.dart';
 import 'package:moodbeat/service_locator.dart';
 
 class AppColors {
@@ -127,33 +127,37 @@ class moodSelection {
   };
 }
 
-// void main() async {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  runApp(
+    QueryScope(
+      child: MaterialApp.router(
+        title: "MoodBeat",
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Montserrat', // Apply Montserrat font globally
+          scaffoldBackgroundColor:
+              Colors.white, // Set background color globally
+        ),
+      ),
+    ),
+  );
+}
+
+// void main() {
 //   WidgetsFlutterBinding.ensureInitialized();
-//   await configureDependencies();
 //   runApp(
-//     QueryScope(
-//       child: MaterialApp.router(
-//         title: "MoodBeat",
-//         routerConfig: router,
-//         debugShowCheckedModeBanner: false,
-//         theme: ThemeData(
-//           fontFamily: 'Montserrat', // Apply Montserrat font globally
-//           scaffoldBackgroundColor:
-//               Colors.white, // Set background color globally
+//     MaterialApp(
+//       home: Scaffold(
+//         backgroundColor: Colors.white,
+//         body: Container(
+//           padding: EdgeInsets.fromLTRB(16, 67, 16, 0),
+//           child: MyCalendarScreen(),
 //         ),
 //       ),
+//       debugShowCheckedModeBanner: false,
 //     ),
 //   );
 // }
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MaterialApp(
-      home: Scaffold(
-    backgroundColor: Colors.white,
-    body: Container(
-      padding: EdgeInsets.fromLTRB(16, 67, 16, 0),
-      child: MyCalendarScreen(),
-    ),
-  )));
-}

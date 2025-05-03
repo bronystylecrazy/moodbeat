@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moodbeat/screens/Q2.dart';
-import 'package:moodbeat/screens/Signin.dart';
+import 'package:moodbeat/screens/_Q2.dart';
+import 'package:moodbeat/screens/_Signin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
