@@ -35,7 +35,23 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioProvider.dio(gh<_i769.IConfig>()),
       preResolve: true,
     );
+    gh.singleton<_i880.MoodbeatCore>(() => apiProvider.moodbeatCore(
+          gh<_i361.Dio>(),
+          gh<_i769.IConfig>(),
+        ));
     gh.singleton<_i880.AuthApi>(() => apiProvider.authApi(
+          gh<_i361.Dio>(),
+          gh<_i769.IConfig>(),
+        ));
+    gh.singleton<_i880.ProfileApi>(() => apiProvider.profileApi(
+          gh<_i361.Dio>(),
+          gh<_i769.IConfig>(),
+        ));
+    gh.singleton<_i880.DiaryApi>(() => apiProvider.diaryApi(
+          gh<_i361.Dio>(),
+          gh<_i769.IConfig>(),
+        ));
+    gh.singleton<_i880.TrackApi>(() => apiProvider.trackApi(
           gh<_i361.Dio>(),
           gh<_i769.IConfig>(),
         ));

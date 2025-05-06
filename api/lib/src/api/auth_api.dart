@@ -8,8 +8,6 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:moodbeat_core/src/model/auth_profile_response.dart';
 
 class AuthApi {
@@ -21,7 +19,7 @@ class AuthApi {
   const AuthApi(this._dio, this._serializers);
 
   /// Get current user profile
-  /// Get profile of the currently authenticated user
+  /// Get a profile of the currently authenticated user
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation

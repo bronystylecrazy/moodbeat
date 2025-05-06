@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodbeat/screens/_Q3.dart';
 import 'package:moodbeat/screens/_Q5.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -248,10 +249,7 @@ class StressedPreferenceScreenState extends State<StressedPreferenceScreen> {
                         onPressed: selectedGenre == null
                             ? null // Disable the button when no genre is selected
                             : () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return Q5();
-                                }));
+                                context.push("/calendar");
                               },
                         child: const Text("Next",
                             style: TextStyle(

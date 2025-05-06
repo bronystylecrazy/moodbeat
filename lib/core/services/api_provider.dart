@@ -6,8 +6,31 @@ import 'package:moodbeat_core/moodbeat_core.dart';
 @module
 abstract class ApiProvider {
   @singleton
+  MoodbeatCore moodbeatCore(Dio dio, IConfig config) {
+    return MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
+  }
+
+  @singleton
   AuthApi authApi(Dio dio, IConfig config) {
     final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
     return core.getAuthApi();
+  }
+
+  @singleton
+  ProfileApi profileApi(Dio dio, IConfig config) {
+    final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
+    return core.getProfileApi();
+  }
+
+  @singleton
+  DiaryApi diaryApi(Dio dio, IConfig config) {
+    final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
+    return core.getDiaryApi();
+  }
+
+  @singleton
+  TrackApi trackApi(Dio dio, IConfig config) {
+    final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
+    return core.getTrackApi();
   }
 }

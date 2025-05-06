@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_query/flutter_query.dart';
+import 'package:fquery/fquery.dart';
 import 'package:moodbeat/home/calendar/calendar.dart';
 import 'package:moodbeat/router.dart';
 import 'package:moodbeat/screens/_SignUp.dart';
+import 'package:moodbeat/screens/garph.dart';
 import 'package:moodbeat/service_locator.dart';
 
 class AppColors {
@@ -127,11 +128,20 @@ class moodSelection {
   };
 }
 
+// void main() {
+//   runApp(const MoodReportApp());
+// }
+
+final queryClient = QueryClient(
+  defaultQueryOptions: DefaultQueryOptions(),
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   runApp(
-    QueryScope(
+    QueryClientProvider(
+      queryClient: queryClient,
       child: MaterialApp.router(
         title: "MoodBeat",
         routerConfig: router,

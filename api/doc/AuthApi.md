@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Get current user profile
 
-Get profile of the currently authenticated user
+Get a profile of the currently authenticated user
 
 ### Example
 ```dart

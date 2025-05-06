@@ -65,11 +65,26 @@ All URIs are relative to *http://localhost:8080*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AuthApi*](doc/AuthApi.md) | [**getCurrentProfile**](doc/AuthApi.md#getcurrentprofile) | **GET** /api/v1/auth/profile | Get current user profile
+[*DiaryApi*](doc/DiaryApi.md) | [**createDiaryEntry**](doc/DiaryApi.md#creatediaryentry) | **POST** /api/v1/diary-entries | Create a new diary entry
+[*DiaryApi*](doc/DiaryApi.md) | [**listDiaryEntriesByDateRange**](doc/DiaryApi.md#listdiaryentriesbydaterange) | **GET** /api/v1/diary-entries | List diary entries by date range
+[*ProfileApi*](doc/ProfileApi.md) | [**getUserProfile**](doc/ProfileApi.md#getuserprofile) | **GET** /api/v1/profile | Get user profile
+[*ProfileApi*](doc/ProfileApi.md) | [**getUserSettings**](doc/ProfileApi.md#getusersettings) | **GET** /api/v1/profile/settings | Get user settings
+[*TrackApi*](doc/TrackApi.md) | [**getSuggestedTracks**](doc/TrackApi.md#getsuggestedtracks) | **GET** /api/v1/suggest | Suggests a track based on the user&#39;s mood and entry date.
 
 
 ## Documentation For Models
 
  - [AuthProfileResponse](doc/AuthProfileResponse.md)
+ - [DbDiaryEntry](doc/DbDiaryEntry.md)
+ - [DbGetUserByIdRow](doc/DbGetUserByIdRow.md)
+ - [DbListDiaryEntriesByDateRangeRow](doc/DbListDiaryEntriesByDateRangeRow.md)
+ - [DbUserSetting](doc/DbUserSetting.md)
+ - [SpotifyFullTrack](doc/SpotifyFullTrack.md)
+ - [SpotifyImage](doc/SpotifyImage.md)
+ - [SpotifyLinkedFromInfo](doc/SpotifyLinkedFromInfo.md)
+ - [SpotifySimpleAlbum](doc/SpotifySimpleAlbum.md)
+ - [SpotifySimpleArtist](doc/SpotifySimpleArtist.md)
+ - [SpotifyTrackExternalIDs](doc/SpotifyTrackExternalIDs.md)
 
 
 ## Documentation For Authorization

@@ -54,7 +54,7 @@ class _SigminState extends State<Sigmin> {
     try {
       // Authenticate user with Spotify
       final result = await FlutterWebAuth2.authenticate(
-        url: "https://d2f342b322090cbb.platform.connectedtech.dev/authorize",
+        url: "https://moodbeat-api.devsirawit.com/authorize",
         callbackUrlScheme: "moodbeat",
       );
 

@@ -15,9 +15,7 @@ class AccountPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final query = useCurrentUserQuery();
-    final userState = query?.state.data;
-    final hasData = query?.state.hasData ?? false;
-    final isLoading = !hasData;
+    final userState = query?.data;
 
     final displayName = userState?.data?.displayName ?? '';
     final email = userState?.data?.email ?? '';
@@ -55,7 +53,7 @@ class AccountPage extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: isLoading
+              child: query?.isLoading ?? false
                   ? Shimmer.fromColors(
                       baseColor: Colors.grey.shade300,
                       highlightColor: Colors.grey.shade100,
@@ -72,13 +70,13 @@ class AccountPage extends HookWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            isLoading
+            query?.isLoading ?? false
                 ? const SkeletonRow(label: 'Name')
                 : ProfileRow(label: 'Name', value: displayName),
-            isLoading
+            query?.isLoading ?? false
                 ? const SkeletonRow(label: 'E-mail')
                 : ProfileRow(label: 'E-mail', value: email),
-            isLoading
+            query?.isLoading ?? false
                 ? const SkeletonRow(label: 'Subscription')
                 : ProfileRow(label: 'Subscription', value: product),
             const SizedBox(height: 20),

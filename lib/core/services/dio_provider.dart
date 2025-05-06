@@ -5,7 +5,7 @@ import "package:shared_preferences/shared_preferences.dart";
 
 Future<String?> getAccessToken() async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('access_token');
+  return prefs.getString('token');
 }
 
 @module
@@ -19,9 +19,10 @@ abstract class DioProvider {
       BaseOptions(
         baseUrl: config.apiBaseUrl, // Use injected config!
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': '$token',
           'Content-Type': 'application/json',
         },
+        contentType: 'application/json',
       ),
     );
   }

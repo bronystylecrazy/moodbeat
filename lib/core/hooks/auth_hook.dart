@@ -1,9 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_query/flutter_query.dart';
+import 'package:fquery/fquery.dart';
 import 'package:moodbeat/service_locator.dart';
 import 'package:moodbeat_core/moodbeat_core.dart';
 
-QueryResult<Response<AuthProfileResponse>>? useCurrentUserQuery() {
+UseQueryResult<Response<AuthProfileResponse>, dynamic> useCurrentUserQuery() {
   final authApi = getIt<AuthApi>();
-  return useQuery("currentUser", (key) => authApi.getCurrentProfile());
+
+  return useQuery(["currentUser"], () => authApi.getCurrentProfile());
+}
+
+UseQueryResult<Response<DbGetUserByIdRow>, dynamic>? useGetUserProfile() {
+  final profileApi = getIt<ProfileApi>();
+  return useQuery(["getUserProfile"], () => profileApi.getUserProfile());
 }

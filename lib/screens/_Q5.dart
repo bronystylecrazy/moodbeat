@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodbeat/screens/_Finish.dart';
-import 'package:moodbeat/screens/_Q3.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
@@ -27,187 +25,196 @@ class MoodPreferenceScreen extends StatefulWidget {
 }
 
 class _MoodPreferenceScreenState extends State<MoodPreferenceScreen> {
-  final List<String> genres = [
-    "Sad & slow songs 😔🎶",
-    "Chill & relaxing tunes 🌙🎧",
-    "Comforting & soothing music 💖🎼",
-    "Uplifting & fun tracks 🎉🎵"
+  final List<Map<String, String>> artists = [
+    {
+      "name": "Taylor Swift",
+      "id": "06HL4z0CvFAxyc27GXpf02",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb02b9d6b2e5f7f5c6f1c8f8f8"
+    },
+    {
+      "name": "Drake",
+      "id": "3TVXtAsR1Inumwj472S9r4",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb4c4c4c4c4c4c4c4c4c4c4c4c"
+    },
+    {
+      "name": "Lady Gaga",
+      "id": "1HY2Jd0NmPuamShAr6KMms",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb1c1c1c1c1c1c1c1c1c1c1c1c"
+    },
+    {
+      "name": "Bad Bunny",
+      "id": "4q3ewBCX7sLwd24euuV69X",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb2a2a2a2a2a2a2a2a2a2a2a2a"
+    },
+    {
+      "name": "Coldplay",
+      "id": "4gzpq5DPGxSnKTe4SA8HAU",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb3e3e3e3e3e3e3e3e3e3e3e3e"
+    },
+    {
+      "name": "Rihanna",
+      "id": "5pKCCKE2ajJHZ9KAiaK11H",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb9c9c9c9c9c9c9c9c9c9c9c9c"
+    },
+    {
+      "name": "Ariana Grande",
+      "id": "66CXWjxzNUsdJxJ2JdwvnR",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb6c6c6c6c6c6c6c6c6c6c6c6c"
+    },
+    {
+      "name": "Dua Lipa",
+      "id": "6M2wZ9GZgrQXHCFfjv46we",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb8c8c8c8c8c8c8c8c8c8c8c8c"
+    },
+    {
+      "name": "Ed Sheeran",
+      "id": "6eUKZXaKkcviH0Ku9w2n3V",
+      "image":
+          "https://i.scdn.co/image/ab6761610000e5eb5c5c5c5c5c5c5c5c5c5c5c5c"
+    },
   ];
 
-  // Store only one selected genre
-  String? selectedGenre;
+  final Set<String> selectedIds = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.angleLeft,
-            color: Color(0xFF9188F7), // This represents a back arrow
-            size: 32,
-          ),
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 300),
-                pageBuilder: (context, animation, secondaryAnimation) => Q3(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  const begin = Offset(-1.0, 0.0); // เลื่อนจากซ้าย
-                  const end = Offset.zero; // จบที่ตำแหน่งปกติ
-                  const curve = Curves.easeInOut;
-
-                  var tween = Tween(begin: begin, end: end)
-                      .chain(CurveTween(curve: curve));
-                  var offsetAnimation = animation.drive(tween);
-
-                  return SlideTransition(
-                      position: offsetAnimation, child: child);
-                },
-              ),
-            );
-          },
+        leading: const Icon(
+          FontAwesomeIcons.angleLeft,
+          color: Color(0xFF9188F7),
+          size: 32,
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text("Skip",
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Montserrat")),
-          )
-        ],
         backgroundColor: Colors.white,
         elevation: 0,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: Text("Skip",
+                style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "Montserrat",
+                    color: Colors.grey)),
+          )
+        ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Row(
-                  children: List.generate(5, (index) {
-                    return Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        height: 5,
-                        decoration: BoxDecoration(
-                          color: index < 5
-                              ? const Color(0xFF9188F7)
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            const Text.rich(
+              TextSpan(
                 children: [
-                  const SizedBox(
-                    width: 245,
-                    height: 92,
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Welcome to ',
-                            style: TextStyle(
-                              color: Color(0xFF3F3F3F),
-                              fontSize: 36,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'MoodBeats',
-                            style: TextStyle(
-                              color: Color(0xFF9188F7),
-                              fontSize: 36,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  TextSpan(
+                    text: 'Welcome to ',
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontFamily: "Montserrat"),
                   ),
-                  const SizedBox(height: 20),
-                  const SizedBox(
-                    width: 265,
-                    height: 36,
-                    child: Text(
-                      "This will help us create the best experience for you!",
-                      style: TextStyle(
-                        color: Color(0xFF3F3F3F),
-                        fontSize: 13,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: SizedBox(
-                      width: 300,
-                      child: Text(
-                        "Who is your favorite artist?",
-                        style: TextStyle(
-                          color: Color(0xFF3F3F3F),
-                          fontSize: 20,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20, right: 20),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(51),
-                          ),
-                          minimumSize: const Size(109, 40),
-                        ),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return Finish();
-                          }));
-                        },
-                        child: const Text("Next",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w700)),
-                      ),
-                    ),
-                  ),
+                  TextSpan(
+                    text: 'MoodBeats',
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF9188F7),
+                        fontFamily: "Montserrat"),
+                  )
                 ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            const Text(
+              "Who is your favorite artist?",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Montserrat",
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                children: artists.map((artist) {
+                  final isSelected = selectedIds.contains(artist['id']);
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (isSelected) {
+                          selectedIds.remove(artist['id']);
+                        } else {
+                          selectedIds.add(artist['id']!);
+                        }
+                      });
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: isSelected
+                                  ? const Color(0xFF9188F7)
+                                  : Colors.transparent,
+                              width: 3,
+                            ),
+                          ),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(artist['image']!),
+                            radius: 40,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          artist['name']!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Montserrat"),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                print("Selected IDs: $selectedIds");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32)),
+              ),
+              child: const Text("Next",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Montserrat")),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

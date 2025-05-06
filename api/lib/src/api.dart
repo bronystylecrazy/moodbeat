@@ -10,6 +10,9 @@ import 'package:moodbeat_core/src/auth/basic_auth.dart';
 import 'package:moodbeat_core/src/auth/bearer_auth.dart';
 import 'package:moodbeat_core/src/auth/oauth.dart';
 import 'package:moodbeat_core/src/api/auth_api.dart';
+import 'package:moodbeat_core/src/api/diary_api.dart';
+import 'package:moodbeat_core/src/api/profile_api.dart';
+import 'package:moodbeat_core/src/api/track_api.dart';
 
 class MoodbeatCore {
   static const String basePath = r'http://localhost:8080';
@@ -69,5 +72,23 @@ class MoodbeatCore {
   /// by doing that all interceptors will not be executed
   AuthApi getAuthApi() {
     return AuthApi(dio, serializers);
+  }
+
+  /// Get DiaryApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  DiaryApi getDiaryApi() {
+    return DiaryApi(dio, serializers);
+  }
+
+  /// Get ProfileApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ProfileApi getProfileApi() {
+    return ProfileApi(dio, serializers);
+  }
+
+  /// Get TrackApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TrackApi getTrackApi() {
+    return TrackApi(dio, serializers);
   }
 }

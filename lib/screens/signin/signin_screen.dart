@@ -1,18 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:moodbeat/screens/_Q1.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
+import 'package:moodbeat/service_locator.dart';
 import 'package:moodbeat/screens/signin/guest_button.dart';
 import 'package:moodbeat/screens/signin/spotify_button.dart';
+import 'package:moodbeat_core/moodbeat_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const String clientId = "YOUR_SPOTIFY_CLIENT_ID";
-const String redirectUri = "YOUR_REDIRECT_URI";
-const String authorizationEndpoint = "https://accounts.spotify.com/authorize";
-const String tokenEndpoint = "https://accounts.spotify.com/api/token";
+import 'package:go_router/go_router.dart'; // Assuming you're using GoRouter
 
 class SigninScreen extends HookWidget {
-  const SigninScreen({super.key});
+  SigninScreen({super.key});
+  final profileApi = getIt.get<ProfileApi>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,31 +19,34 @@ class SigninScreen extends HookWidget {
 
     Future<void> loginWithSpotify() async {
       final prefs = await SharedPreferences.getInstance();
-
-      if (prefs.getString('token') != null) {
-        print("Token already exists: ${prefs.getString('token')}");
-        return;
-      }
-
       isLoading.value = true;
 
       try {
         final result = await FlutterWebAuth2.authenticate(
-          url:
-              "$authorizationEndpoint?client_id=$clientId&response_type=code&redirect_uri=$redirectUri&scope=user-read-private%20user-read-email",
+          url: "https://moodbeat-api.devsirawit.com/authorize",
           callbackUrlScheme: "moodbeat",
         );
 
         final token = Uri.parse(result).queryParameters['token'];
+        if (token == null) throw Exception("Token not found in redirect URL");
 
-        if (token != null) {
-          prefs.setString('token', token);
-          print("Spotify token: $token");
+        await prefs.setString("token", token);
+        print(token);
+        getIt<Dio>().options.headers["Authorization"] = token;
+
+        final profileResult = await profileApi.getUserProfile();
+        final userProfile = profileResult.data;
+
+        if (userProfile?.setupAt == null) {
+          context.go('/onboarding/q1');
         } else {
-          print("Token missing in callback");
+          context.go('/calendar'); // Or wherever the logged-in user should go
         }
       } catch (e) {
-        print("Error during authentication: $e");
+        debugPrint("Authentication error: $e");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed. Please try again.')),
+        );
       } finally {
         isLoading.value = false;
       }
@@ -63,16 +65,17 @@ class SigninScreen extends HookWidget {
                 filterQuality: FilterQuality.high,
               ),
               const SizedBox(height: 70),
-              isLoading.value
-                  ? const CircularProgressIndicator()
-                  : SpotifyButton(onPressed: loginWithSpotify),
-              const SizedBox(height: 10),
-              isLoading.value
-                  ? const CircularProgressIndicator()
-                  : GuestButton(onPressed: () {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (_) => Q1()));
-                    }),
+              if (isLoading.value)
+                const CircularProgressIndicator()
+              else ...[
+                SpotifyButton(onPressed: loginWithSpotify),
+                const SizedBox(height: 10),
+                GuestButton(
+                  onPressed: () {
+                    context.go('/onboarding/q1');
+                  },
+                ),
+              ]
             ],
           ),
         ),

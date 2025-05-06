@@ -116,7 +116,7 @@ class _MusicPreferenceScreenState extends State<MusicPreferenceScreen> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Welcome to ',
+                            text: 'Welcome to',
                             style: TextStyle(
                               color: Color(0xFF3F3F3F),
                               fontSize: 36,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodbeat/screens/_Q3.dart';
 import 'package:moodbeat/screens/_Q5.dart';
 import 'package:moodbeat/screens/onboarding/app_bar_back_and_skip.dart';
@@ -40,7 +41,7 @@ class StressedPreferenceScreen extends HookWidget {
     }
 
     void goNext() {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const Q5()));
+      context.push("/calendar");
     }
 
     return Scaffold(
