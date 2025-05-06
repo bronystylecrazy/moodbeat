@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodbeat/animation_wrapper.dart';
 import 'package:moodbeat/core/hooks/diary_hook.dart';
+import 'package:moodbeat/home/calendar/banner.dart';
 import 'package:moodbeat/home/monthly_report/banner_report.dart';
+import 'package:moodbeat/home/monthly_report/no_report.dart';
 import 'package:moodbeat/main.dart';
 import 'package:moodbeat/mood_selection_screen.dart';
 import 'package:moodbeat_core/moodbeat_core.dart';
@@ -17,16 +19,15 @@ class MyCalendarScreen extends HookWidget {
     final currentDate = DateTime.now();
     final currentMonth = useState(DateTime.now());
     final startDate = useMemoized(() {
-      final firstDay =
-          DateTime(currentMonth.value.year, currentMonth.value.month, 1);
-      return DateFormat('yyyy-MM-dd').format(firstDay);
+      final firstDayOfYear = DateTime(currentMonth.value.year, 1, 1);
+      return DateFormat('yyyy-MM-dd').format(firstDayOfYear);
     }, [currentMonth.value]);
 
     final endDate = useMemoized(() {
-      final lastDay =
-          DateTime(currentMonth.value.year, currentMonth.value.month + 1, 0);
-      return DateFormat('yyyy-MM-dd').format(lastDay);
+      final lastDayOfYear = DateTime(currentMonth.value.year, 12, 31);
+      return DateFormat('yyyy-MM-dd').format(lastDayOfYear);
     }, [currentMonth.value]);
+
     final markedDates = useState<Map<DateTime, String>>({});
     final moodImages = moodSelection.moodImages;
 
@@ -34,26 +35,29 @@ class MyCalendarScreen extends HookWidget {
     print("End Date: $endDate");
 
     final response = useListDiaryEntriesByDateRange(startDate, endDate);
-    final diaryEntries = response?.data?.data ?? [];
+    final allDiaryEntries = response?.data?.data ?? [];
+
+    final filteredEntries = allDiaryEntries.where((entry) {
+      final entryDate = DateTime.parse(entry.entryDate!);
+      return entryDate.year == currentMonth.value.year &&
+          entryDate.month == currentMonth.value.month;
+    }).toList();
+    final diaryEntries = filteredEntries;
 
     final diaryEntriesMap = {
       for (final entry in diaryEntries) entry.entryDate: entry,
     };
 
-    // Count each emotion
     final emotionCounts = <String, int>{};
     for (final entry in diaryEntries) {
       final emotion = entry.emotion;
       if (emotion != null && emotion.isNotEmpty) {
-        print("Emotion: $emotion");
         emotionCounts[emotion] = (emotionCounts[emotion] ?? 0) + 1;
       }
     }
 
-// Calculate total
     final totalEmotions = emotionCounts.values.fold<int>(0, (a, b) => a + b);
 
-// Calculate percentage
     final emotionPercentages = {
       for (final entry in emotionCounts.entries)
         entry.key: (entry.value / totalEmotions) * 100,
@@ -240,12 +244,18 @@ class MyCalendarScreen extends HookWidget {
                 children: buildCalendarDays(),
               ),
               const SizedBox(height: 16),
-              ReportBanner(
-                date: DateTime.now(),
-                emotionPercentages: emotionPercentages,
-                startDate: startDate,
-                endDate: endDate,
-              ),
+              if (diaryEntries.isEmpty) ...[
+                EmptyCalendarBanner(date: currentDate),
+                const SizedBox(height: 32),
+                NoReportBanner(),
+              ] else ...[
+                ReportBanner(
+                  date: DateTime.now(),
+                  emotionPercentages: emotionPercentages,
+                  startDate: startDate,
+                  endDate: endDate,
+                ),
+              ],
             ],
           ),
         ),

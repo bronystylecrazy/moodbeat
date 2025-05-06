@@ -3,6 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:moodbeat/main.dart';
+import 'package:image/image.dart' as img;
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class DiaryNavBar extends HookWidget {
   final VoidCallback onSavePressed;
@@ -17,18 +20,40 @@ class DiaryNavBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final selectedImage = useState<File?>(null);
-    final captionController = useTextEditingController();
 
     Future<void> pickImage() async {
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-      if (pickedFile != null) {
-        selectedImage.value = File(pickedFile.path);
-        onPictureSelected(selectedImage.value);
-      } else {
+      if (pickedFile == null) {
         print('No image selected.');
+        return;
       }
+
+      final ext = p.extension(pickedFile.path).toLowerCase();
+      File imageFile = File(pickedFile.path);
+
+      if (ext == '.heic' || ext == '.heif') {
+        try {
+          final bytes = await imageFile.readAsBytes();
+          final decoded = img.decodeImage(bytes);
+          if (decoded == null) throw Exception('Unable to decode HEIC image');
+
+          final jpegBytes = img.encodeJpg(decoded, quality: 90);
+          final tempDir = await getTemporaryDirectory();
+          final newPath = p.join(tempDir.path,
+              '${p.basenameWithoutExtension(imageFile.path)}.jpg');
+          imageFile = await File(newPath).writeAsBytes(jpegBytes);
+
+          print('HEIC image converted to JPEG: $newPath');
+        } catch (e) {
+          print('Failed to convert HEIC to JPEG: $e');
+          return;
+        }
+      }
+
+      selectedImage.value = imageFile;
+      onPictureSelected(imageFile);
     }
 
     return Align(

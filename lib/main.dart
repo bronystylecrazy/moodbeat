@@ -133,7 +133,10 @@ class moodSelection {
 // }
 
 final queryClient = QueryClient(
-  defaultQueryOptions: DefaultQueryOptions(),
+  defaultQueryOptions: DefaultQueryOptions(
+    refetchOnMount: RefetchOnMount.stale,
+    cacheDuration: const Duration(seconds: 5),
+  ),
 );
 
 void main() async {
