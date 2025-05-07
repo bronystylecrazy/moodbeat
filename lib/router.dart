@@ -2,6 +2,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:moodbeat/account/page.dart';
 import 'package:moodbeat/home/calendar/calendar.dart';
+import 'package:moodbeat/home/playlist/playlist_of_the_month_screen.dart';
 import 'package:moodbeat/home/review/review_screen.dart';
 import 'package:moodbeat/screens/MusicPre.dart';
 import 'package:moodbeat/screens/_Q3.dart';
@@ -53,6 +54,15 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: "/playlist_of_the_month",
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>? ?? {};
+        return PlaylistOfTheMonthScreen(
+          date: extra['date'],
+        );
+      },
+    ),
+    GoRoute(
       path: "/monthly_report",
       builder: (context, state) {
         final extra = state.extra as Map<String, dynamic>?;
@@ -61,11 +71,14 @@ final GoRouter router = GoRouter(
             extra?['emotionPercentages'] as Map<String, double>? ?? {};
         final startDate = extra?['startDate'] as String? ?? '';
         final endDate = extra?['endDate'] as String? ?? '';
+        final currentDate =
+            extra?['currentDate'] as DateTime? ?? DateTime.now();
 
         return MonthlyReportPage(
           emotionPercentages: emotionPercentages,
           startDate: startDate,
           endDate: endDate,
+          currentDate: currentDate,
         );
       },
     ),

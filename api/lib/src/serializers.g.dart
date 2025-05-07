@@ -8,16 +8,25 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AuthProfileResponse.serializer)
+      ..add(DbArtist.serializer)
       ..add(DbDiaryEntry.serializer)
+      ..add(DbFulltrack.serializer)
       ..add(DbGetUserByIdRow.serializer)
       ..add(DbListDiaryEntriesByDateRangeRow.serializer)
+      ..add(DbPlaylist.serializer)
       ..add(DbUserSetting.serializer)
+      ..add(FiberError.serializer)
+      ..add(PgtypeInt4.serializer)
+      ..add(PlaylistsFullPlaylist.serializer)
       ..add(SpotifyFullTrack.serializer)
       ..add(SpotifyImage.serializer)
       ..add(SpotifyLinkedFromInfo.serializer)
       ..add(SpotifySimpleAlbum.serializer)
       ..add(SpotifySimpleArtist.serializer)
       ..add(SpotifyTrackExternalIDs.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(DbFulltrack)]),
+          () => new ListBuilder<DbFulltrack>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(SpotifySimpleArtist)]),

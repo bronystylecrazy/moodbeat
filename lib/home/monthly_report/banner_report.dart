@@ -187,6 +187,7 @@ class ReportBanner extends HookWidget {
                 "startDate": startDate,
                 "endDate": endDate,
                 "emotionPercentages": emotionPercentages,
+                "currentDate": date,
               });
             },
             child: Container(

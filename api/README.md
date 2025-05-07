@@ -47,13 +47,13 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:moodbeat_core/moodbeat_core.dart';
 
 
-final api = MoodbeatCore().getAuthApi();
+final api = MoodbeatCore().getArtistApi();
 
 try {
-    final response = await api.getCurrentProfile();
+    final response = await api.listArtists();
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling AuthApi->getCurrentProfile: $e\n");
+    print("Exception when calling ArtistApi->listArtists: $e\n");
 }
 
 ```
@@ -64,21 +64,33 @@ All URIs are relative to *http://localhost:8080*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*ArtistApi*](doc/ArtistApi.md) | [**listArtists**](doc/ArtistApi.md#listartists) | **GET** /api/v1/artists | List all artists
 [*AuthApi*](doc/AuthApi.md) | [**getCurrentProfile**](doc/AuthApi.md#getcurrentprofile) | **GET** /api/v1/auth/profile | Get current user profile
 [*DiaryApi*](doc/DiaryApi.md) | [**createDiaryEntry**](doc/DiaryApi.md#creatediaryentry) | **POST** /api/v1/diary-entries | Create a new diary entry
 [*DiaryApi*](doc/DiaryApi.md) | [**listDiaryEntriesByDateRange**](doc/DiaryApi.md#listdiaryentriesbydaterange) | **GET** /api/v1/diary-entries | List diary entries by date range
+[*PlaylistApi*](doc/PlaylistApi.md) | [**getMonthlyPlaylist**](doc/PlaylistApi.md#getmonthlyplaylist) | **GET** /api/v1/playlists/{entry_date} | Get a playlist
 [*ProfileApi*](doc/ProfileApi.md) | [**getUserProfile**](doc/ProfileApi.md#getuserprofile) | **GET** /api/v1/profile | Get user profile
 [*ProfileApi*](doc/ProfileApi.md) | [**getUserSettings**](doc/ProfileApi.md#getusersettings) | **GET** /api/v1/profile/settings | Get user settings
+[*ProfileApi*](doc/ProfileApi.md) | [**hideArtist**](doc/ProfileApi.md#hideartist) | **POST** /api/v1/profile/selected-artists/{artist_id}/hide | Hide artist
+[*ProfileApi*](doc/ProfileApi.md) | [**listSelectedArtists**](doc/ProfileApi.md#listselectedartists) | **GET** /api/v1/profile/selected-artists | List selected artists
+[*ProfileApi*](doc/ProfileApi.md) | [**selectArtists**](doc/ProfileApi.md#selectartists) | **PUT** /api/v1/profile/selected-artists | Select artists
+[*ProfileApi*](doc/ProfileApi.md) | [**showArtist**](doc/ProfileApi.md#showartist) | **POST** /api/v1/profile/selected-artists/{artist_id}/show | Show artist
 [*TrackApi*](doc/TrackApi.md) | [**getSuggestedTracks**](doc/TrackApi.md#getsuggestedtracks) | **GET** /api/v1/suggest | Suggests a track based on the user&#39;s mood and entry date.
 
 
 ## Documentation For Models
 
  - [AuthProfileResponse](doc/AuthProfileResponse.md)
+ - [DbArtist](doc/DbArtist.md)
  - [DbDiaryEntry](doc/DbDiaryEntry.md)
+ - [DbFulltrack](doc/DbFulltrack.md)
  - [DbGetUserByIdRow](doc/DbGetUserByIdRow.md)
  - [DbListDiaryEntriesByDateRangeRow](doc/DbListDiaryEntriesByDateRangeRow.md)
+ - [DbPlaylist](doc/DbPlaylist.md)
  - [DbUserSetting](doc/DbUserSetting.md)
+ - [FiberError](doc/FiberError.md)
+ - [PgtypeInt4](doc/PgtypeInt4.md)
+ - [PlaylistsFullPlaylist](doc/PlaylistsFullPlaylist.md)
  - [SpotifyFullTrack](doc/SpotifyFullTrack.md)
  - [SpotifyImage](doc/SpotifyImage.md)
  - [SpotifyLinkedFromInfo](doc/SpotifyLinkedFromInfo.md)

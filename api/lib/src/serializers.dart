@@ -15,10 +15,16 @@ import 'package:moodbeat_core/src/date_serializer.dart';
 import 'package:moodbeat_core/src/model/date.dart';
 
 import 'package:moodbeat_core/src/model/auth_profile_response.dart';
+import 'package:moodbeat_core/src/model/db_artist.dart';
 import 'package:moodbeat_core/src/model/db_diary_entry.dart';
+import 'package:moodbeat_core/src/model/db_fulltrack.dart';
 import 'package:moodbeat_core/src/model/db_get_user_by_id_row.dart';
 import 'package:moodbeat_core/src/model/db_list_diary_entries_by_date_range_row.dart';
+import 'package:moodbeat_core/src/model/db_playlist.dart';
 import 'package:moodbeat_core/src/model/db_user_setting.dart';
+import 'package:moodbeat_core/src/model/fiber_error.dart';
+import 'package:moodbeat_core/src/model/pgtype_int4.dart';
+import 'package:moodbeat_core/src/model/playlists_full_playlist.dart';
 import 'package:moodbeat_core/src/model/spotify_full_track.dart';
 import 'package:moodbeat_core/src/model/spotify_image.dart';
 import 'package:moodbeat_core/src/model/spotify_linked_from_info.dart';
@@ -30,10 +36,16 @@ part 'serializers.g.dart';
 
 @SerializersFor([
   AuthProfileResponse,
+  DbArtist,
   DbDiaryEntry,
+  DbFulltrack,
   DbGetUserByIdRow,
   DbListDiaryEntriesByDateRangeRow,
+  DbPlaylist,
   DbUserSetting,
+  FiberError,
+  PgtypeInt4,
+  PlaylistsFullPlaylist,
   SpotifyFullTrack,
   SpotifyImage,
   SpotifyLinkedFromInfo,
@@ -49,6 +61,14 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(SpotifyFullTrack)]),
         () => ListBuilder<SpotifyFullTrack>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(DbArtist)]),
+        () => ListBuilder<DbArtist>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(String)]),
+        () => ListBuilder<String>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodbeat/mood_selection_screen.dart';
 import 'package:moodbeat/animation_wrapper.dart';
 import 'package:moodbeat/main.dart';
@@ -9,13 +10,9 @@ class PlaylistBanner extends StatelessWidget {
   const PlaylistBanner({Key? key, required this.date}) : super(key: key);
 
   void _navigateToMoodSelection(BuildContext context) async {
-    // Placeholder for navigation to playlist screen
-    // You'll replace this with actual navigation logic
-    print("Navigating to Playlist Screen");
-    // await Navigator.push(
-    //   context,
-    //   createSlideUpRoute(MoodSelectionScreen(date: date)),
-    // );
+    context.push("/playlist_of_the_month", extra: {
+      'date': date,
+    });
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:moodbeat/core/hooks/diary_hook.dart';
 import 'package:moodbeat/home/calendar/banner.dart';
 import 'package:moodbeat/home/monthly_report/banner_report.dart';
 import 'package:moodbeat/home/monthly_report/no_report.dart';
+import 'package:moodbeat/home/playlist_of_month/banner_playlist.dart';
 import 'package:moodbeat/main.dart';
 import 'package:moodbeat/mood_selection_screen.dart';
 import 'package:moodbeat_core/moodbeat_core.dart';
@@ -250,11 +251,14 @@ class MyCalendarScreen extends HookWidget {
                 NoReportBanner(),
               ] else ...[
                 ReportBanner(
-                  date: DateTime.now(),
+                  date: currentMonth.value,
                   emotionPercentages: emotionPercentages,
                   startDate: startDate,
                   endDate: endDate,
                 ),
+                const SizedBox(height: 32),
+                PlaylistBanner(date: currentMonth.value),
+                const SizedBox(height: 32),
               ],
             ],
           ),
