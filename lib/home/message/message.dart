@@ -1,21 +1,23 @@
-// lib/home/message/message.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:moodbeat/main.dart';
-import 'package:moodbeat/home/playlist/playlist_screen.dart'; // Import the playlist screen
+import 'package:moodbeat/home/playlist/playlist_screen.dart';
 
-class SaveConfirmationOverlay extends StatelessWidget {
-  final Function() onTapClose;
-  final String selectedMood; // Add this parameter
+class SaveConfirmationOverlay extends HookWidget {
+  final VoidCallback onTapClose;
+  final String selectedMood;
   final Map<String, String> moodImages;
-  final DateTime date; //add the date
+  final DateTime date;
+  final String message; // New message field
 
   const SaveConfirmationOverlay({
-    Key? key,
+    super.key,
     required this.onTapClose,
-    required this.selectedMood, // Require the mood
+    required this.selectedMood,
     required this.moodImages,
-    required this.date, // add date
-  }) : super(key: key);
+    required this.date,
+    required this.message,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,6 @@ class SaveConfirmationOverlay extends StatelessWidget {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
@@ -53,22 +54,22 @@ class SaveConfirmationOverlay extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
-                            moodImages[selectedMood] ?? 'asset/images/joy.png'),
-                        // Display the mood image
+                          moodImages[selectedMood] ?? 'assets/images/joy.png',
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const SizedBox(
+                  SizedBox(
                     width: 312,
                     child: Text(
-                      'The best things happen when you trust the process. Keep going, and everything will fall into place.',
+                      message,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: AppColors.textColor,
                         fontSize: 16,
-                        fontFamily:AppTextStyles.primaryFontFamily,
+                        fontFamily: AppTextStyles.primaryFontFamily,
                         fontWeight: FontWeight.w600,
                         letterSpacing: -0.32,
                       ),
@@ -77,13 +78,11 @@ class SaveConfirmationOverlay extends StatelessWidget {
                   const SizedBox(height: 28),
                   GestureDetector(
                     onTap: () {
-                      // Navigate to the playlist screen, now passing the date
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PlaylistScreen(
-                            date: date, // Pass the date here
-                          ),
+                          builder: (context) =>
+                              PlaylistScreen(date: date, mood: selectedMood),
                         ),
                       );
                     },
@@ -98,8 +97,6 @@ class SaveConfirmationOverlay extends StatelessWidget {
                       ),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             'Reveal playlist of the day',

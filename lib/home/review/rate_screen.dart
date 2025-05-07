@@ -1,56 +1,48 @@
-// lib/home/review/rate_screen.dart
 import 'package:flutter/material.dart';
-import 'package:moodbeat/main.dart'; // Import AppColors
-import 'package:moodbeat/home_screen.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:moodbeat/home/review/review_screen.dart'; // Import ReviewScreen
 
-class RateScreen extends StatefulWidget {
+import 'package:moodbeat/main.dart';
+import 'package:moodbeat/home/review/review_screen.dart';
+
+class RateScreen extends HookWidget {
   final VoidCallback onClose;
   final String imageUrl;
   final DateTime playlistDate;
 
   const RateScreen({
-    Key? key,
+    super.key,
     required this.onClose,
     required this.imageUrl,
     required this.playlistDate,
-  }) : super(key: key);
-
-  @override
-  State<RateScreen> createState() => _RateScreenState();
-}
-
-class _RateScreenState extends State<RateScreen> {
-  int _selectedRating = 0;
-
-  void _navigateToHomeScreen() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-      (Route<dynamic> route) => false,
-    );
-  }
-
-  void _navigateToReviewScreen() {
-    Navigator.of(context).push(
-      MaterialPageRoute( // Use MaterialPageRoute instead of PageRouteBuilder
-        builder: (context) => ReviewScreen(
-          initialRating: _selectedRating,
-          imageUrl: widget.imageUrl,
-          playlistDate: widget.playlistDate,
-          onClose: _navigateToHomeScreen, // Pass the onClose callback
-        ),
-      ),
-    );
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
+    final selectedRating = useState(0);
+
+    void goToCalendar() {
+      context.push("/calendar");
+    }
+
+    void goToReviewScreen() {
+      context.push(
+        '/review',
+        extra: {
+          'initialRating': selectedRating.value,
+          'imageUrl': imageUrl,
+          'playlistDate': playlistDate,
+          'onClose': goToCalendar,
+        },
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Close Button (Top Right)
+          // Close Button
           Positioned(
             right: 16,
             top: 67,
@@ -61,14 +53,14 @@ class _RateScreenState extends State<RateScreen> {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 foregroundColor: AppColors.defualtColor,
               ),
-              onPressed: _navigateToHomeScreen,
+              onPressed: goToCalendar,
               child: const Icon(
                 Icons.close,
                 size: 32,
               ),
             ),
           ),
-          // Content (Centered)
+          // Main content
           Center(
             child: Container(
               width: 365,
@@ -97,15 +89,13 @@ class _RateScreenState extends State<RateScreen> {
                     top: 48,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
                           width: 152,
                           height: 152,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(widget.imageUrl),
+                              image: NetworkImage(imageUrl),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -113,7 +103,7 @@ class _RateScreenState extends State<RateScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          DateFormat('dd MMMM yyyy').format(widget.playlistDate),
+                          DateFormat('dd MMMM yyyy').format(playlistDate),
                           style: const TextStyle(
                             color: AppColors.textColor,
                             fontSize: 14,
@@ -127,42 +117,40 @@ class _RateScreenState extends State<RateScreen> {
                   Positioned(
                     left: 0,
                     top: 247,
-                    child: Container(
+                    child: SizedBox(
                       width: 365,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              for (int i = 1; i <= 5; i++)
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedRating = i;
-                                    });
-                                    if (_selectedRating > 0) {
-                                      _navigateToReviewScreen();
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                                    child: Image.asset(
-                                      _selectedRating >= i
-                                          ? 'asset/images/star_filled.png'
-                                          : 'asset/images/star.png',
-                                      width: 32,
-                                      height: 32,
-                                      color: AppColors.ascent,
-                                    ),
+                          for (int i = 1; i <= 5; i++)
+                            GestureDetector(
+                              onTap: () {
+                                selectedRating.value = i;
+                                goToReviewScreen();
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 6),
+                                child: Container(
+                                  // decoration: const BoxDecoration(
+                                  //   boxShadow: [
+                                  //     BoxShadow(
+                                  //       color: Colors.black26,
+                                  //       blurRadius: 4,
+                                  //       offset: Offset(0, 2),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  child: Image.asset(
+                                    selectedRating.value >= i
+                                        ? 'assets/images/star_filled.png'
+                                        : 'assets/images/star.png',
+                                    width: 32,
+                                    height: 32,
                                   ),
                                 ),
-                            ],
-                          ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

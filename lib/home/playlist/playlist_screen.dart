@@ -1,68 +1,68 @@
-// lib/home/playlist/playlist_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
+import 'package:moodbeat/core/hooks/track_hook.dart';
 import 'package:moodbeat/home/playlist/playlist.dart';
 import 'package:moodbeat/home/playlist/playlist_info.dart';
-import 'package:moodbeat/home/review/rate_screen.dart'; // Import the RateScreen
-import 'package:intl/intl.dart';
+import 'package:moodbeat/home/review/rate_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PlaylistScreen extends StatefulWidget {
+Future<void> openSpotifyTrack(String trackId) async {
+  final url = Uri.parse('https://open.spotify.com/track/$trackId');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+class PlaylistScreen extends HookWidget {
   final DateTime date;
+  final String mood;
   final String description;
 
   const PlaylistScreen({
-    Key? key,
+    super.key,
+    required this.mood,
     required this.date,
-    this.description =
-        'High-energy beats to match your unstoppable mood!',
-  }) : super(key: key);
-
-  @override
-  State<PlaylistScreen> createState() => _PlaylistScreenState();
-}
-
-class _PlaylistScreenState extends State<PlaylistScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<Offset> _slideAnimation;
-  bool _showRateScreen = false;
-  String _playlistImageUrl = "asset/images/playlist_cover.png"; // Add playlist image url
-  //String _playlistName = "My Playlist"; // Remove playlist name
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _toggleRateScreen() {
-    setState(() {
-      _showRateScreen = !_showRateScreen;
-      if (_showRateScreen) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
-    });
-  }
+    this.description = 'High-energy beats to match your unstoppable mood!',
+  });
 
   @override
   Widget build(BuildContext context) {
+    final formattedDate = useMemoized(() {
+      return DateFormat('yyyy-MM-dd').format(date);
+    }, [date]);
+    final query = useGetSuggestedTracks(mood, formattedDate);
+    print(query.data);
+    final showRateScreen = useState(false);
+    final playlistImageUrl = useMemoized(() {
+      return query.data?.data?.first.album?.images?.first?.url ?? '';
+    }, [query.data]);
+    print("Playlist image URL: $playlistImageUrl");
+    final animationController = useAnimationController(
+      duration: const Duration(milliseconds: 300),
+    );
+
+    final slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    void toggleRateScreen() {
+      showRateScreen.value = !showRateScreen.value;
+      if (showRateScreen.value) {
+        animationController.forward();
+      } else {
+        animationController.reverse();
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -81,7 +81,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             ),
           ),
           SafeArea(
-            child: _showRateScreen
+            child: showRateScreen.value
                 ? const SizedBox()
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -92,9 +92,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                           alignment: Alignment.topRight,
                           child: IconButton(
                             icon: const Icon(Icons.close, color: Colors.white),
-                            onPressed: () {
-                              _toggleRateScreen();
-                            },
+                            onPressed: toggleRateScreen,
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -103,31 +101,36 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                             width: 273,
                             height: 273,
                             decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  16), // 👈 Add this for rounding
                               image: DecorationImage(
-                                image: AssetImage(_playlistImageUrl),
+                                image: NetworkImage(playlistImageUrl),
                                 fit: BoxFit.cover,
                               ),
                             ),
+                            clipBehavior:
+                                Clip.antiAlias, // 👈 Ensures clipping happens
                           ),
                         ),
                         const SizedBox(height: 24),
                         PlaylistInfo(
-                          date: widget.date,
-                          description: widget.description,
+                          date: date,
+                          description: description,
                         ),
                         const SizedBox(height: 24),
-                        const Playlist(),
+                        Playlist(
+                          tracks: query.data?.data ?? [],
+                          isLoading: query.isLoading,
+                        ),
                       ],
                     ),
                   ),
           ),
-          if (_showRateScreen)
+          if (showRateScreen.value)
             RateScreen(
-              onClose: () {
-                _toggleRateScreen();
-              },
-              imageUrl: _playlistImageUrl, // Pass the image URL here
-              playlistDate: widget.date, // Pass the playlist date here
+              onClose: toggleRateScreen,
+              imageUrl: playlistImageUrl,
+              playlistDate: date,
             ),
         ],
       ),

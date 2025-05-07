@@ -1,48 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:moodbeat/main.dart';
-import 'package:moodbeat/home/dairy/diary_screen.dart'; // Import the DiaryScreen
-import 'package:moodbeat/animation_wrapper.dart'; // Import the animation wrapper
+import 'package:moodbeat/home/dairy/diary_screen.dart';
+import 'package:moodbeat/animation_wrapper.dart';
 
-
-class MoodSelectionScreen extends StatefulWidget {
+class MoodSelectionScreen extends HookWidget {
   final DateTime date;
 
   const MoodSelectionScreen({Key? key, required this.date}) : super(key: key);
 
   @override
-  _MoodSelectionScreenState createState() => _MoodSelectionScreenState();
-}
-
-class _MoodSelectionScreenState extends State<MoodSelectionScreen> {
-  String? _selectedMood;
-
-  final Map<String, String> moodImages = moodSelection.moodImages;
-
-  final List<String> row1Moods = [
-    'Joy',
-    'Surprise',
-    'Expecting',
-    'Trust',
-  ];
-  final List<String> row2Moods = [
-    'Disgust',
-    'Anger',
-    'Fear',
-    'Sad',
-  ];
-
-void _navigateToDiaryScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      createSlideUpRoute(
-        DiaryScreen(
-            date: widget.date, mood: _selectedMood ?? "null"),
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final selectedMood = useState<String?>(null);
+    final moodImages = moodSelection.moodImages;
+
+    final row1Moods = ['Joy', 'Surprise', 'Expecting', 'Trust'];
+    final row2Moods = ['Disgust', 'Anger', 'Fear', 'Sad'];
+
+    void navigateToDiaryScreen() {
+      Navigator.push(
+        context,
+        createSlideUpRoute(
+          DiaryScreen(date: date, mood: selectedMood.value ?? "null"),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
@@ -58,9 +41,7 @@ void _navigateToDiaryScreen(BuildContext context) {
                   color: AppColors.defualtColor,
                   iconSize: 32,
                   icon: const Icon(Icons.close),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
               // Main content
@@ -68,46 +49,39 @@ void _navigateToDiaryScreen(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextHeader(),
+                  const TextHeader(),
                   const SizedBox(height: 40),
-                  Container(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: row1Moods.map((mood) {
-                              return MoodButton(
-                                mood: mood,
-                                imagePath: moodImages[mood]!,
-                                onPressed: () {
-                                  setState(() {
-                                    _selectedMood = mood;
-                                  });
-                                  _navigateToDiaryScreen(context);
-                                },
-                              );
-                            }).toList(),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: row2Moods.map((mood) {
-                              return MoodButton(
-                                mood: mood,
-                                imagePath: moodImages[mood]!,
-                                onPressed: () {
-                                  setState(() {
-                                    _selectedMood = mood;
-                                  });
-                                  _navigateToDiaryScreen(context);
-                                },
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: row1Moods.map((mood) {
+                            return MoodButton(
+                              mood: mood,
+                              imagePath: moodImages[mood]!,
+                              onPressed: () {
+                                selectedMood.value = mood;
+                                navigateToDiaryScreen();
+                              },
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: row2Moods.map((mood) {
+                            return MoodButton(
+                              mood: mood,
+                              imagePath: moodImages[mood]!,
+                              onPressed: () {
+                                selectedMood.value = mood;
+                                navigateToDiaryScreen();
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                   ),
                 ],

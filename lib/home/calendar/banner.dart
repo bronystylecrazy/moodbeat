@@ -18,12 +18,13 @@ class EmptyCalendarBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _navigateToMoodSelection(context), // Call the navigation function
+      onTap: () =>
+          _navigateToMoodSelection(context), // Call the navigation function
       child: Center(
         child: Image.asset(
-          'assets/images/banner_1.png', // Replace with your banner image path
+          'assets/images/banner1.png', // Replace with your banner image path
           fit: BoxFit.contain,
-          width: 300,
+          width: MediaQuery.of(context).size.width,
         ),
       ),
     );

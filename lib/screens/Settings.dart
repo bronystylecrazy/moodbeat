@@ -14,8 +14,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: SizedBox(
-        height: 90,
-        width: 90,
+        height: 75,
+        width: 75,
         child: FloatingActionButton(
           shape: const CircleBorder(),
           backgroundColor: Colors.black,
@@ -43,8 +43,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           elevation: 0,
           shape: const CircularNotchedRectangle(),
           notchMargin: 10,
+          height: 75,
           child: SizedBox(
-            height: 77,
+            height: 75,
             child: Row(
               children: [
                 const Spacer(),
@@ -52,10 +53,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   icon: Icon(
                     Icons.home_rounded,
                     size: 35,
-                    color:
-                        _selectedTab == 'home'
-                            ? const Color.fromARGB(255, 0, 0, 0)
-                            : Colors.grey,
+                    color: _selectedTab == 'home'
+                        ? const Color.fromARGB(255, 0, 0, 0)
+                        : Colors.grey,
                   ),
                   onPressed: () {
                     setState(() {
@@ -68,10 +68,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   icon: Icon(
                     Icons.account_circle_rounded,
                     size: 35,
-                    color:
-                        _selectedTab == 'profile'
-                            ? const Color.fromARGB(255, 0, 0, 0)
-                            : Colors.grey,
+                    color: _selectedTab == 'profile'
+                        ? const Color.fromARGB(255, 0, 0, 0)
+                        : Colors.grey,
                   ),
                   onPressed: () {
                     setState(() {
@@ -214,27 +213,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           fontWeight: FontWeight.w400,
         ),
       ),
-      trailing:
-          subtitle != null
-              ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFFCECDCD),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
+      trailing: subtitle != null
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 16,
                     color: Color(0xFFCECDCD),
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              )
-              : null,
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                  color: Color(0xFFCECDCD),
+                ),
+              ],
+            )
+          : null,
       onTap: () {},
     );
   }
@@ -260,10 +258,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'TH',
               style: TextStyle(
                 fontSize: 16,
-                color:
-                    _selectedLanguage == 'TH'
-                        ? const Color(0xFF9188F7)
-                        : const Color(0xFFCECDCD),
+                color: _selectedLanguage == 'TH'
+                    ? const Color(0xFF9188F7)
+                    : const Color(0xFFCECDCD),
               ),
             ),
           ),
@@ -277,10 +274,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'EN',
               style: TextStyle(
                 fontSize: 16,
-                color:
-                    _selectedLanguage == 'EN'
-                        ? const Color(0xFF9188F7)
-                        : const Color(0xFFCECDCD),
+                color: _selectedLanguage == 'EN'
+                    ? const Color(0xFF9188F7)
+                    : const Color(0xFFCECDCD),
               ),
             ),
           ),

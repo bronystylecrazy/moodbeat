@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moodbeat/screens/Finish.dart';
-import 'package:moodbeat/screens/FontStyle.dart';
-import 'package:moodbeat/screens/MusicPre.dart';
-import 'package:moodbeat/screens/Q1.dart';
-import 'package:moodbeat/screens/Q2.dart';
-import 'package:moodbeat/screens/Q3.dart';
-import 'package:moodbeat/screens/Settings.dart';
-import 'package:moodbeat/screens/SignIn.dart';
-import 'package:moodbeat/screens/hidden.dart';
-import 'package:moodbeat/screens/SignUp.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:moodbeat/screens/Account.dart';
+import 'package:fquery/fquery.dart';
+import 'package:moodbeat/home/calendar/calendar.dart';
+import 'package:moodbeat/router.dart';
+import 'package:moodbeat/screens/_SignUp.dart';
+import 'package:moodbeat/screens/garph.dart';
+import 'package:moodbeat/service_locator.dart';
 
 class AppColors {
   static const Color defualtColor = Color(0xFF9188F7);
@@ -123,30 +117,60 @@ class AppButtonStyle {
 
 class moodSelection {
   static const Map<String, String> moodImages = {
-    'Joy': 'asset/images/joy.png',
-    'Surprise': 'asset/images/surprise.png',
-    'Expecting': 'asset/images/expecting.png',
-    'Trust': 'asset/images/trust.png',
-    'Disgust': 'asset/images/disgust.png',
-    'Anger': 'asset/images/angry.png',
-    'Fear': 'asset/images/fear.png',
-    'Sad': 'asset/images/sad.png',
+    'Joy': 'assets/images/joy.png',
+    'Surprise': 'assets/images/surprise.png',
+    'Expecting': 'assets/images/expecting.png',
+    'Trust': 'assets/images/trust.png',
+    'Disgust': 'assets/images/disgust.png',
+    'Anger': 'assets/images/angry.png',
+    'Fear': 'assets/images/fear.png',
+    'Sad': 'assets/images/sad.png',
   };
 }
 
 // void main() {
+//   runApp(const MoodReportApp());
+// }
+
+final queryClient = QueryClient(
+  defaultQueryOptions: DefaultQueryOptions(
+    refetchOnMount: RefetchOnMount.stale,
+    cacheDuration: const Duration(seconds: 5),
+  ),
+);
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  runApp(
+    QueryClientProvider(
+      queryClient: queryClient,
+      child: MaterialApp.router(
+        title: "MoodBeat",
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Montserrat', // Apply Montserrat font globally
+          scaffoldBackgroundColor:
+              Colors.white, // Set background color globally
+        ),
+      ),
+    ),
+  );
+}
+
+// void main() {
+//   WidgetsFlutterBinding.ensureInitialized();
 //   runApp(
 //     MaterialApp(
-//       title: "MoodBeat",
-//       home: FontStylePage(),
-//       theme: ThemeData(
-//         fontFamily: 'Montserrat', // Apply Montserrat font globally
-//         scaffoldBackgroundColor: Colors.white, // Set background color globally
+//       home: Scaffold(
+//         backgroundColor: Colors.white,
+//         body: Container(
+//           padding: EdgeInsets.fromLTRB(16, 67, 16, 0),
+//           child: MyCalendarScreen(),
+//         ),
 //       ),
+//       debugShowCheckedModeBanner: false,
 //     ),
 //   );
 // }
-
-void main() {
-  runApp(MaterialApp(home: Signin()));
-}

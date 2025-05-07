@@ -1,0 +1,13 @@
+version: "3"
+
+tasks:
+  generate:api:
+    desc: Generate Flutter API client from Swagger
+    cmds:
+      - openapi-generator generate -i http://localhost:8080/swagger/doc.json -g dart-dio -o ./api --additional-properties=pubName=moodbeat_core
+      - cd api && flutter pub run build_runner build --delete-conflicting-outputs
+
+  di:generate:
+    desc: Generate GetIt + Injectable bindings
+    cmds:
+      - flutter pub run build_runner build --delete-conflicting-outputs

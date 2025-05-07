@@ -63,7 +63,7 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
       mainAxisSize: MainAxisSize.min, // Reduce column height
       children: [
         Image.asset(
-          'asset/images/letter_1.png', // Path to your letter1 image
+          'assets/images/letter_1.png', // Path to your letter1 image
           width: 80, // Adjust as needed
           height: 80, // Adjust as needed
         ),
@@ -77,7 +77,7 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
       mainAxisSize: MainAxisSize.min, // Reduce column height
       children: [
         Image.asset(
-          'asset/images/letter_2.png', // Path to your letter2 image
+          'assets/images/letter_2.png', // Path to your letter2 image
           width: 80, // Adjust as needed
           height: 80, // Adjust as needed
         ),
