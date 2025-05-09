@@ -67,6 +67,7 @@ Class | Method | HTTP request | Description
 [*ArtistApi*](doc/ArtistApi.md) | [**listArtists**](doc/ArtistApi.md#listartists) | **GET** /api/v1/artists | List all artists
 [*AuthApi*](doc/AuthApi.md) | [**getCurrentProfile**](doc/AuthApi.md#getcurrentprofile) | **GET** /api/v1/auth/profile | Get current user profile
 [*DiaryApi*](doc/DiaryApi.md) | [**createDiaryEntry**](doc/DiaryApi.md#creatediaryentry) | **POST** /api/v1/diary-entries | Create a new diary entry
+[*DiaryApi*](doc/DiaryApi.md) | [**getDiaryEntryByDate**](doc/DiaryApi.md#getdiaryentrybydate) | **GET** /api/v1/diary-entries/date/{date} | Diary Handler
 [*DiaryApi*](doc/DiaryApi.md) | [**getDiaryEntryByID**](doc/DiaryApi.md#getdiaryentrybyid) | **GET** /api/v1/diary-entries/{id} | Diary Handler
 [*DiaryApi*](doc/DiaryApi.md) | [**listDiaryEntriesByDateRange**](doc/DiaryApi.md#listdiaryentriesbydaterange) | **GET** /api/v1/diary-entries | List diary entries by date range
 [*MoodPresetApi*](doc/MoodPresetApi.md) | [**getMoodPresets**](doc/MoodPresetApi.md#getmoodpresets) | **GET** /api/v1/mood-presets | Mood Presets Handler

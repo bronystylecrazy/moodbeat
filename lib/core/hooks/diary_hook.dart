@@ -15,3 +15,14 @@ UseQueryResult<Response<Iterable<DbListDiaryEntriesByDateRangeRow>>, dynamic>
     ),
   );
 }
+
+UseQueryResult<Response<DbDiaryEntry>, dynamic> useGetDiaryEntryByDate(
+  String entryDate,
+) {
+  final diaryApi = getIt<DiaryApi>();
+
+  return useQuery(
+    ["getDiaryEntryByDate", entryDate],
+    () => diaryApi.getDiaryEntryByDate(date: entryDate),
+  );
+}

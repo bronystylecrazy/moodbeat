@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createDiaryEntry**](DiaryApi.md#creatediaryentry) | **POST** /api/v1/diary-entries | Create a new diary entry
+[**getDiaryEntryByDate**](DiaryApi.md#getdiaryentrybydate) | **GET** /api/v1/diary-entries/date/{date} | Diary Handler
 [**getDiaryEntryByID**](DiaryApi.md#getdiaryentrybyid) | **GET** /api/v1/diary-entries/{id} | Diary Handler
 [**listDiaryEntriesByDateRange**](DiaryApi.md#listdiaryentriesbydaterange) | **GET** /api/v1/diary-entries | List diary entries by date range
 
@@ -57,6 +58,49 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDiaryEntryByDate**
+> DbDiaryEntry getDiaryEntryByDate(date)
+
+Diary Handler
+
+Handles diary-related requests
+
+### Example
+```dart
+import 'package:moodbeat_core/api.dart';
+
+final api = MoodbeatCore().getDiaryApi();
+final String date = date_example; // String | Diary entry date
+
+try {
+    final response = api.getDiaryEntryByDate(date);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DiaryApi->getDiaryEntryByDate: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **date** | **String**| Diary entry date | 
+
+### Return type
+
+[**DbDiaryEntry**](DbDiaryEntry.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

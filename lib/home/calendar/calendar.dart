@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodbeat/animation_wrapper.dart';
 import 'package:moodbeat/core/hooks/diary_hook.dart';
 import 'package:moodbeat/home/calendar/banner.dart';
+import 'package:moodbeat/home/dairy/diary_screen_readonly.dart';
 import 'package:moodbeat/home/monthly_report/banner_report.dart';
 import 'package:moodbeat/home/monthly_report/no_report.dart';
 import 'package:moodbeat/home/playlist_of_month/banner_playlist.dart';
@@ -65,6 +68,19 @@ class MyCalendarScreen extends HookWidget {
     };
 
     void addMoodForDate(DateTime date) async {
+      final formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      final existingEntry = diaryEntriesMap[formattedDate];
+      if (existingEntry != null) {
+        // If the entry already exists, navigate to the read-only screen
+        Navigator.push(
+          context,
+          createSlideUpRoute(
+            DiaryReadonlyScreen(date: date),
+          ),
+        );
+        return;
+      }
+
       final selectedMood = await Navigator.push(
         context,
         createSlideUpRoute(MoodSelectionScreen(date: date)),
@@ -224,45 +240,130 @@ class MyCalendarScreen extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white, // Set white background
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 67, 16, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              buildHeader(),
-              const SizedBox(height: 16),
-              buildWeekdayLabels(),
-              GridView.count(
-                crossAxisCount: 7,
-                shrinkWrap: true,
-                childAspectRatio: 0.6,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.only(top: 20),
-                children: buildCalendarDays(),
-              ),
-              const SizedBox(height: 16),
-              if (diaryEntries.isEmpty) ...[
-                EmptyCalendarBanner(date: currentDate),
-                const SizedBox(height: 32),
-                NoReportBanner(),
-              ] else ...[
-                ReportBanner(
-                  date: currentMonth.value,
-                  emotionPercentages: emotionPercentages,
-                  startDate: startDate,
-                  endDate: endDate,
+      extendBody: true, // 👈 Allows blur over body behind navbar
+      backgroundColor: Colors.white,
+
+      // ✅ Floating action button
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        shape: const CircleBorder(),
+        onPressed: () {
+          // Handle "+"
+        },
+        child: const Icon(Icons.add, size: 32, color: Colors.white),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // ✅ Bottom navigation bar with backdrop blur
+      bottomNavigationBar: Stack(
+        children: [
+          // This will blur whatever is behind it
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+              child: Container(
+                height: 80 + MediaQuery.of(context).padding.bottom,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8), // blackdrop tint
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
                 ),
-                const SizedBox(height: 32),
-                PlaylistBanner(date: currentMonth.value),
-                const SizedBox(height: 32),
-              ],
-            ],
+              ),
+            ),
           ),
-        ),
+
+          // Transparent BottomAppBar on top of the blurred layer
+          BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 8,
+            color: Colors.transparent, // 👈 must be transparent for blur
+            elevation: 0,
+            child: SizedBox(
+              height: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.home_rounded,
+                        size: 36, color: Colors.black),
+                    onPressed: () {
+                      // Go to Home
+                    },
+                  ),
+                  const SizedBox(width: 0),
+                  IconButton(
+                    icon: const Icon(Icons.account_circle_rounded,
+                        size: 36, color: Colors.grey),
+                    onPressed: () {
+                      // Go to Profile
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+
+      body: Stack(
+        children: [
+          // Example background content to blur
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     gradient: LinearGradient(
+          //       colors: [Colors.deepPurple, Colors.purpleAccent],
+          //       begin: Alignment.topLeft,
+          //       end: Alignment.bottomRight,
+          //     ),
+          //   ),
+          // ),
+          Center(
+              child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 67, 16, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  buildHeader(),
+                  const SizedBox(height: 16),
+                  buildWeekdayLabels(),
+                  GridView.count(
+                    crossAxisCount: 7,
+                    shrinkWrap: true,
+                    childAspectRatio: 0.6,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 20),
+                    children: buildCalendarDays(),
+                  ),
+                  const SizedBox(height: 16),
+                  if (diaryEntries.isEmpty) ...[
+                    EmptyCalendarBanner(date: currentDate),
+                    const SizedBox(height: 32),
+                    NoReportBanner(),
+                  ] else ...[
+                    ReportBanner(
+                      date: currentMonth.value,
+                      emotionPercentages: emotionPercentages,
+                      startDate: startDate,
+                      endDate: endDate,
+                    ),
+                    const SizedBox(height: 32),
+                    PlaylistBanner(date: currentMonth.value),
+                  ],
+                  SizedBox(height: 120 + MediaQuery.of(context).padding.bottom),
+                ],
+              ),
+            ),
+          )),
+        ],
       ),
     );
   }
