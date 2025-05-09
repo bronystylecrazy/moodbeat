@@ -249,6 +249,7 @@ class MyCalendarScreen extends HookWidget {
         shape: const CircleBorder(),
         onPressed: () {
           // Handle "+"
+          addMoodForDate(currentDate);
         },
         child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
