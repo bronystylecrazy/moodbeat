@@ -24,6 +24,10 @@ class PlaylistOfTheMonthScreen extends HookWidget {
     }, [date]);
     final query = useGetMonthlyPlaylist(formattedDate);
     final playlistImageUrl = useMemoized(() {
+      if (query.data?.data?.tracks == null ||
+          query.data?.data?.tracks?.isEmpty == true) {
+        return 'https://placehold.co/512x512';
+      }
       return query.data?.data?.tracks?.first.albumImageUrl ?? '';
     }, [query.data]);
     final tracks = query.data?.data?.tracks;

@@ -38,7 +38,7 @@ class SigninScreen extends HookWidget {
         final userProfile = profileResult.data;
 
         if (userProfile?.setupAt == null) {
-          context.go('/onboarding/q1');
+          context.go('/onboarding');
         } else {
           context.go('/calendar'); // Or wherever the logged-in user should go
         }

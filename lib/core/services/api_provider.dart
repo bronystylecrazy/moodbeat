@@ -45,4 +45,16 @@ abstract class ApiProvider {
     final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
     return core.getPlaylistApi();
   }
+
+  @singleton
+  SongGenresApi songGenresApi(Dio dio, IConfig config) {
+    final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
+    return core.getSongGenresApi();
+  }
+
+  @singleton
+  MoodPresetApi moodPresetApi(Dio dio, IConfig config) {
+    final core = MoodbeatCore(dio: dio, basePathOverride: config.apiBaseUrl);
+    return core.getMoodPresetApi();
+  }
 }

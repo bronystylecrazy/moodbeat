@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodbeat/screens/_Q1.dart';
-import 'package:moodbeat/screens/_Q3.dart';
 import 'package:moodbeat/screens/onboarding/app_bar_back_and_skip.dart';
 import 'package:moodbeat/screens/onboarding/onboarding_progress_bar.dart';
 import 'package:moodbeat/screens/onboarding/intro_header.dart';
 import 'package:moodbeat/screens/onboarding/single_selection_chips.dart';
 import 'package:moodbeat/screens/onboarding/next_button.dart';
+import 'package:moodbeat/screens/onboarding/single_selection_strings.dart';
 
 class MusicExperienceScreen extends StatefulWidget {
   const MusicExperienceScreen({super.key});
@@ -28,7 +29,7 @@ class _MusicExperienceScreenState extends State<MusicExperienceScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarBackAndSkip(
-        onBack: () => Navigator.pushReplacement(
+        onBack: () => Navigator.push(
           context,
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 300),
@@ -66,7 +67,7 @@ class _MusicExperienceScreenState extends State<MusicExperienceScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SingleSelectionChips(
+                  SingleSelectionStrings(
                     options: genres,
                     selected: selectedGenre,
                     onSelect: (value) => setState(() {
@@ -75,12 +76,8 @@ class _MusicExperienceScreenState extends State<MusicExperienceScreen> {
                   ),
                   const Spacer(),
                   NextButton(
-                    enabled: selectedGenre != null,
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const Q3()),
-                    ),
-                  ),
+                      enabled: selectedGenre != null,
+                      onPressed: () => context.push("/onboarding/q2")),
                 ],
               ),
             ),

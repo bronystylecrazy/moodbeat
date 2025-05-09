@@ -11,19 +11,30 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(DbArtist.serializer)
       ..add(DbDiaryEntry.serializer)
       ..add(DbFulltrack.serializer)
+      ..add(DbGenre.serializer)
       ..add(DbGetUserByIdRow.serializer)
       ..add(DbListDiaryEntriesByDateRangeRow.serializer)
+      ..add(DbListSelectedPresetsByUserRow.serializer)
+      ..add(DbListSelectedStressfulPresetsByUserRow.serializer)
+      ..add(DbMoodPreset.serializer)
       ..add(DbPlaylist.serializer)
+      ..add(DbUserSelectedGenre.serializer)
+      ..add(DbUserSelectedPreset.serializer)
+      ..add(DbUserSelectedStressfulPreset.serializer)
       ..add(DbUserSetting.serializer)
       ..add(FiberError.serializer)
-      ..add(PgtypeInt4.serializer)
       ..add(PlaylistsFullPlaylist.serializer)
+      ..add(ProfileSelectArtistsMutation.serializer)
+      ..add(ProfileSelectDefaultPresetMutation.serializer)
+      ..add(ProfileSelectSongGenresMutation.serializer)
+      ..add(ProfileSelectStressfulPresetMutation.serializer)
       ..add(SpotifyFullTrack.serializer)
       ..add(SpotifyImage.serializer)
       ..add(SpotifyLinkedFromInfo.serializer)
       ..add(SpotifySimpleAlbum.serializer)
       ..add(SpotifySimpleArtist.serializer)
       ..add(SpotifyTrackExternalIDs.serializer)
+      ..add(UpdateUserSettingsMutation.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(DbFulltrack)]),
           () => new ListBuilder<DbFulltrack>())
@@ -56,6 +67,27 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltMap, const [const FullType(String), const FullType(String)]),
           () => new MapBuilder<String, String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(
               BuiltMap, const [const FullType(String), const FullType(String)]),

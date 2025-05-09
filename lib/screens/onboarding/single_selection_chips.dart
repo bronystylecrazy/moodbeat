@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:moodbeat_core/moodbeat_core.dart';
 
 class SingleSelectionChips extends StatelessWidget {
-  final List<String> options;
+  final List<DbMoodPreset> options;
   final String? selected;
   final ValueChanged<String> onSelect;
   final double spacing;
@@ -22,10 +23,10 @@ class SingleSelectionChips extends StatelessWidget {
       spacing: spacing,
       runSpacing: runSpacing,
       children: options.map((option) {
-        final isSelected = selected == option;
+        final isSelected = selected == option.id;
 
         return GestureDetector(
-          onTap: () => onSelect(option),
+          onTap: () => onSelect(option.id!),
           child: Container(
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -38,7 +39,7 @@ class SingleSelectionChips extends StatelessWidget {
               ),
             ),
             child: Text(
-              option,
+              "${option.label} ${option.emoji}",
               style: TextStyle(
                 color: isSelected ? Colors.white : const Color(0xFF9188F7),
                 fontSize: 15,

@@ -67,14 +67,29 @@ Class | Method | HTTP request | Description
 [*ArtistApi*](doc/ArtistApi.md) | [**listArtists**](doc/ArtistApi.md#listartists) | **GET** /api/v1/artists | List all artists
 [*AuthApi*](doc/AuthApi.md) | [**getCurrentProfile**](doc/AuthApi.md#getcurrentprofile) | **GET** /api/v1/auth/profile | Get current user profile
 [*DiaryApi*](doc/DiaryApi.md) | [**createDiaryEntry**](doc/DiaryApi.md#creatediaryentry) | **POST** /api/v1/diary-entries | Create a new diary entry
+[*DiaryApi*](doc/DiaryApi.md) | [**getDiaryEntryByID**](doc/DiaryApi.md#getdiaryentrybyid) | **GET** /api/v1/diary-entries/{id} | Diary Handler
 [*DiaryApi*](doc/DiaryApi.md) | [**listDiaryEntriesByDateRange**](doc/DiaryApi.md#listdiaryentriesbydaterange) | **GET** /api/v1/diary-entries | List diary entries by date range
+[*MoodPresetApi*](doc/MoodPresetApi.md) | [**getMoodPresets**](doc/MoodPresetApi.md#getmoodpresets) | **GET** /api/v1/mood-presets | Mood Presets Handler
 [*PlaylistApi*](doc/PlaylistApi.md) | [**getMonthlyPlaylist**](doc/PlaylistApi.md#getmonthlyplaylist) | **GET** /api/v1/playlists/{entry_date} | Get a playlist
+[*ProfileApi*](doc/ProfileApi.md) | [**clearDefaultPresets**](doc/ProfileApi.md#cleardefaultpresets) | **DELETE** /api/v1/profile/mood-presets | Clear default presets
+[*ProfileApi*](doc/ProfileApi.md) | [**clearSelectedArtists**](doc/ProfileApi.md#clearselectedartists) | **DELETE** /api/v1/profile/selected-artists | Clear selected artists
+[*ProfileApi*](doc/ProfileApi.md) | [**clearSongGenres**](doc/ProfileApi.md#clearsonggenres) | **DELETE** /api/v1/profile/song-genres | Clear song genres
+[*ProfileApi*](doc/ProfileApi.md) | [**clearStressfulPresets**](doc/ProfileApi.md#clearstressfulpresets) | **DELETE** /api/v1/profile/stressful-presets | Clear stressful presets
+[*ProfileApi*](doc/ProfileApi.md) | [**finishUserSetup**](doc/ProfileApi.md#finishusersetup) | **PUT** /api/v1/profile/setup | Finish user setup
 [*ProfileApi*](doc/ProfileApi.md) | [**getUserProfile**](doc/ProfileApi.md#getuserprofile) | **GET** /api/v1/profile | Get user profile
 [*ProfileApi*](doc/ProfileApi.md) | [**getUserSettings**](doc/ProfileApi.md#getusersettings) | **GET** /api/v1/profile/settings | Get user settings
 [*ProfileApi*](doc/ProfileApi.md) | [**hideArtist**](doc/ProfileApi.md#hideartist) | **POST** /api/v1/profile/selected-artists/{artist_id}/hide | Hide artist
+[*ProfileApi*](doc/ProfileApi.md) | [**listDefaultPresets**](doc/ProfileApi.md#listdefaultpresets) | **GET** /api/v1/profile/mood-presets | List default presets
 [*ProfileApi*](doc/ProfileApi.md) | [**listSelectedArtists**](doc/ProfileApi.md#listselectedartists) | **GET** /api/v1/profile/selected-artists | List selected artists
+[*ProfileApi*](doc/ProfileApi.md) | [**listSelectedSongGenres**](doc/ProfileApi.md#listselectedsonggenres) | **GET** /api/v1/profile/song-genres | List song genres
+[*ProfileApi*](doc/ProfileApi.md) | [**listStressfulPresets**](doc/ProfileApi.md#liststressfulpresets) | **GET** /api/v1/profile/stressful-presets | List stressful presets
 [*ProfileApi*](doc/ProfileApi.md) | [**selectArtists**](doc/ProfileApi.md#selectartists) | **PUT** /api/v1/profile/selected-artists | Select artists
+[*ProfileApi*](doc/ProfileApi.md) | [**selectDefaultPreset**](doc/ProfileApi.md#selectdefaultpreset) | **PUT** /api/v1/profile/mood-presets | Select a default preset
+[*ProfileApi*](doc/ProfileApi.md) | [**selectSongGenres**](doc/ProfileApi.md#selectsonggenres) | **PUT** /api/v1/profile/song-genres | Select song genres
+[*ProfileApi*](doc/ProfileApi.md) | [**selectStressfulPreset**](doc/ProfileApi.md#selectstressfulpreset) | **PUT** /api/v1/profile/stressful-presets | Select a stressful preset
 [*ProfileApi*](doc/ProfileApi.md) | [**showArtist**](doc/ProfileApi.md#showartist) | **POST** /api/v1/profile/selected-artists/{artist_id}/show | Show artist
+[*ProfileApi*](doc/ProfileApi.md) | [**updateUserSettings**](doc/ProfileApi.md#updateusersettings) | **PUT** /api/v1/profile/settings | Update user settings
+[*SongGenresApi*](doc/SongGenresApi.md) | [**listSongGenres**](doc/SongGenresApi.md#listsonggenres) | **GET** /api/v1/song-genres | List song genres
 [*TrackApi*](doc/TrackApi.md) | [**getSuggestedTracks**](doc/TrackApi.md#getsuggestedtracks) | **GET** /api/v1/suggest | Suggests a track based on the user&#39;s mood and entry date.
 
 
@@ -84,19 +99,30 @@ Class | Method | HTTP request | Description
  - [DbArtist](doc/DbArtist.md)
  - [DbDiaryEntry](doc/DbDiaryEntry.md)
  - [DbFulltrack](doc/DbFulltrack.md)
+ - [DbGenre](doc/DbGenre.md)
  - [DbGetUserByIdRow](doc/DbGetUserByIdRow.md)
  - [DbListDiaryEntriesByDateRangeRow](doc/DbListDiaryEntriesByDateRangeRow.md)
+ - [DbListSelectedPresetsByUserRow](doc/DbListSelectedPresetsByUserRow.md)
+ - [DbListSelectedStressfulPresetsByUserRow](doc/DbListSelectedStressfulPresetsByUserRow.md)
+ - [DbMoodPreset](doc/DbMoodPreset.md)
  - [DbPlaylist](doc/DbPlaylist.md)
+ - [DbUserSelectedGenre](doc/DbUserSelectedGenre.md)
+ - [DbUserSelectedPreset](doc/DbUserSelectedPreset.md)
+ - [DbUserSelectedStressfulPreset](doc/DbUserSelectedStressfulPreset.md)
  - [DbUserSetting](doc/DbUserSetting.md)
  - [FiberError](doc/FiberError.md)
- - [PgtypeInt4](doc/PgtypeInt4.md)
  - [PlaylistsFullPlaylist](doc/PlaylistsFullPlaylist.md)
+ - [ProfileSelectArtistsMutation](doc/ProfileSelectArtistsMutation.md)
+ - [ProfileSelectDefaultPresetMutation](doc/ProfileSelectDefaultPresetMutation.md)
+ - [ProfileSelectSongGenresMutation](doc/ProfileSelectSongGenresMutation.md)
+ - [ProfileSelectStressfulPresetMutation](doc/ProfileSelectStressfulPresetMutation.md)
  - [SpotifyFullTrack](doc/SpotifyFullTrack.md)
  - [SpotifyImage](doc/SpotifyImage.md)
  - [SpotifyLinkedFromInfo](doc/SpotifyLinkedFromInfo.md)
  - [SpotifySimpleAlbum](doc/SpotifySimpleAlbum.md)
  - [SpotifySimpleArtist](doc/SpotifySimpleArtist.md)
  - [SpotifyTrackExternalIDs](doc/SpotifyTrackExternalIDs.md)
+ - [UpdateUserSettingsMutation](doc/UpdateUserSettingsMutation.md)
 
 
 ## Documentation For Authorization

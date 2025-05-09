@@ -63,6 +63,14 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i361.Dio>(),
           gh<_i769.IConfig>(),
         ));
+    gh.singleton<_i880.SongGenresApi>(() => apiProvider.songGenresApi(
+          gh<_i361.Dio>(),
+          gh<_i769.IConfig>(),
+        ));
+    gh.singleton<_i880.MoodPresetApi>(() => apiProvider.moodPresetApi(
+          gh<_i361.Dio>(),
+          gh<_i769.IConfig>(),
+        ));
     return this;
   }
 }

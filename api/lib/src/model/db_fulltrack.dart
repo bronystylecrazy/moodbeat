@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:moodbeat_core/src/model/pgtype_int4.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -49,7 +48,7 @@ abstract class DbFulltrack implements Built<DbFulltrack, DbFulltrackBuilder> {
   String? get artistName;
 
   @BuiltValueField(wireName: r'discNumber')
-  PgtypeInt4? get discNumber;
+  int? get discNumber;
 
   @BuiltValueField(wireName: r'durationMs')
   int? get durationMs;
@@ -67,7 +66,7 @@ abstract class DbFulltrack implements Built<DbFulltrack, DbFulltrackBuilder> {
   String? get name;
 
   @BuiltValueField(wireName: r'popularity')
-  PgtypeInt4? get popularity;
+  int? get popularity;
 
   @BuiltValueField(wireName: r'previewUrl')
   String? get previewUrl;
@@ -76,7 +75,7 @@ abstract class DbFulltrack implements Built<DbFulltrack, DbFulltrackBuilder> {
   String? get spotifyUrl;
 
   @BuiltValueField(wireName: r'trackNumber')
-  PgtypeInt4? get trackNumber;
+  int? get trackNumber;
 
   DbFulltrack._();
 
@@ -147,7 +146,7 @@ class _$DbFulltrackSerializer implements PrimitiveSerializer<DbFulltrack> {
       yield r'discNumber';
       yield serializers.serialize(
         object.discNumber,
-        specifiedType: const FullType(PgtypeInt4),
+        specifiedType: const FullType(int),
       );
     }
     if (object.durationMs != null) {
@@ -189,7 +188,7 @@ class _$DbFulltrackSerializer implements PrimitiveSerializer<DbFulltrack> {
       yield r'popularity';
       yield serializers.serialize(
         object.popularity,
-        specifiedType: const FullType(PgtypeInt4),
+        specifiedType: const FullType(int),
       );
     }
     if (object.previewUrl != null) {
@@ -210,7 +209,7 @@ class _$DbFulltrackSerializer implements PrimitiveSerializer<DbFulltrack> {
       yield r'trackNumber';
       yield serializers.serialize(
         object.trackNumber,
-        specifiedType: const FullType(PgtypeInt4),
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -281,9 +280,9 @@ class _$DbFulltrackSerializer implements PrimitiveSerializer<DbFulltrack> {
         case r'discNumber':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(PgtypeInt4),
-          ) as PgtypeInt4;
-          result.discNumber.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.discNumber = valueDes;
           break;
         case r'durationMs':
           final valueDes = serializers.deserialize(
@@ -323,9 +322,9 @@ class _$DbFulltrackSerializer implements PrimitiveSerializer<DbFulltrack> {
         case r'popularity':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(PgtypeInt4),
-          ) as PgtypeInt4;
-          result.popularity.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.popularity = valueDes;
           break;
         case r'previewUrl':
           final valueDes = serializers.deserialize(
@@ -344,9 +343,9 @@ class _$DbFulltrackSerializer implements PrimitiveSerializer<DbFulltrack> {
         case r'trackNumber':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(PgtypeInt4),
-          ) as PgtypeInt4;
-          result.trackNumber.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.trackNumber = valueDes;
           break;
         default:
           unhandled.add(key);

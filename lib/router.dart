@@ -5,9 +5,11 @@ import 'package:moodbeat/home/calendar/calendar.dart';
 import 'package:moodbeat/home/playlist/playlist_of_the_month_screen.dart';
 import 'package:moodbeat/home/review/review_screen.dart';
 import 'package:moodbeat/screens/MusicPre.dart';
-import 'package:moodbeat/screens/_Q3.dart';
+import 'package:moodbeat/screens/_Q1.dart';
+
 import 'package:moodbeat/screens/garph.dart';
 import 'package:moodbeat/screens/onboarding/artists_screen.dart';
+import 'package:moodbeat/screens/onboarding/mood_preference_screen.dart';
 import 'package:moodbeat/screens/onboarding/music_experience_screen.dart';
 import 'package:moodbeat/screens/onboarding/stress_preference_screen.dart';
 import 'package:moodbeat/screens/signin/signin_screen.dart';
@@ -20,6 +22,7 @@ final GoRouter router = GoRouter(
       path: '/',
       builder: (context, state) => SigninScreen(),
     ),
+    GoRoute(path: "/onboarding", builder: (context, state) => Q1()),
     GoRoute(
         path: "/onboarding/q1",
         builder: (context, state) => MusicExperienceScreen()),
@@ -28,10 +31,9 @@ final GoRouter router = GoRouter(
         builder: (context, state) => MoodPreferenceScreen()),
     GoRoute(
         path: "/onboarding/q3",
-        builder: (context, state) => StressedPreferenceScreen()),
+        builder: (context, state) => StressPreferenceScreen()),
     GoRoute(
-        path: "/onboarding/artists",
-        builder: (context, state) => ArtistsScreen()),
+        path: "/onboarding/q4", builder: (context, state) => ArtistsScreen()),
     GoRoute(path: "/calendar", builder: (context, state) => MyCalendarScreen()),
     GoRoute(
         path: "/preference",

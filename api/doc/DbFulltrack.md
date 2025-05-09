@@ -14,16 +14,16 @@ Name | Type | Description | Notes
 **albumReleaseDate** | **String** |  | [optional] 
 **artistId** | **String** |  | [optional] 
 **artistName** | **String** |  | [optional] 
-**discNumber** | [**PgtypeInt4**](PgtypeInt4.md) |  | [optional] 
+**discNumber** | **int** |  | [optional] 
 **durationMs** | **int** |  | [optional] 
 **explicit** | **bool** |  | [optional] 
 **id** | **String** |  | [optional] 
 **isrc** | **String** |  | [optional] 
 **name** | **String** |  | [optional] 
-**popularity** | [**PgtypeInt4**](PgtypeInt4.md) |  | [optional] 
+**popularity** | **int** |  | [optional] 
 **previewUrl** | **String** |  | [optional] 
 **spotifyUrl** | **String** |  | [optional] 
-**trackNumber** | [**PgtypeInt4**](PgtypeInt4.md) |  | [optional] 
+**trackNumber** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

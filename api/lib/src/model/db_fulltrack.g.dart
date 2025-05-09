@@ -20,7 +20,7 @@ class _$DbFulltrack extends DbFulltrack {
   @override
   final String? artistName;
   @override
-  final PgtypeInt4? discNumber;
+  final int? discNumber;
   @override
   final int? durationMs;
   @override
@@ -32,13 +32,13 @@ class _$DbFulltrack extends DbFulltrack {
   @override
   final String? name;
   @override
-  final PgtypeInt4? popularity;
+  final int? popularity;
   @override
   final String? previewUrl;
   @override
   final String? spotifyUrl;
   @override
-  final PgtypeInt4? trackNumber;
+  final int? trackNumber;
 
   factory _$DbFulltrack([void Function(DbFulltrackBuilder)? updates]) =>
       (new DbFulltrackBuilder()..update(updates))._build();
@@ -166,11 +166,9 @@ class DbFulltrackBuilder implements Builder<DbFulltrack, DbFulltrackBuilder> {
   String? get artistName => _$this._artistName;
   set artistName(String? artistName) => _$this._artistName = artistName;
 
-  PgtypeInt4Builder? _discNumber;
-  PgtypeInt4Builder get discNumber =>
-      _$this._discNumber ??= new PgtypeInt4Builder();
-  set discNumber(PgtypeInt4Builder? discNumber) =>
-      _$this._discNumber = discNumber;
+  int? _discNumber;
+  int? get discNumber => _$this._discNumber;
+  set discNumber(int? discNumber) => _$this._discNumber = discNumber;
 
   int? _durationMs;
   int? get durationMs => _$this._durationMs;
@@ -192,11 +190,9 @@ class DbFulltrackBuilder implements Builder<DbFulltrack, DbFulltrackBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  PgtypeInt4Builder? _popularity;
-  PgtypeInt4Builder get popularity =>
-      _$this._popularity ??= new PgtypeInt4Builder();
-  set popularity(PgtypeInt4Builder? popularity) =>
-      _$this._popularity = popularity;
+  int? _popularity;
+  int? get popularity => _$this._popularity;
+  set popularity(int? popularity) => _$this._popularity = popularity;
 
   String? _previewUrl;
   String? get previewUrl => _$this._previewUrl;
@@ -206,11 +202,9 @@ class DbFulltrackBuilder implements Builder<DbFulltrack, DbFulltrackBuilder> {
   String? get spotifyUrl => _$this._spotifyUrl;
   set spotifyUrl(String? spotifyUrl) => _$this._spotifyUrl = spotifyUrl;
 
-  PgtypeInt4Builder? _trackNumber;
-  PgtypeInt4Builder get trackNumber =>
-      _$this._trackNumber ??= new PgtypeInt4Builder();
-  set trackNumber(PgtypeInt4Builder? trackNumber) =>
-      _$this._trackNumber = trackNumber;
+  int? _trackNumber;
+  int? get trackNumber => _$this._trackNumber;
+  set trackNumber(int? trackNumber) => _$this._trackNumber = trackNumber;
 
   DbFulltrackBuilder() {
     DbFulltrack._defaults(this);
@@ -225,16 +219,16 @@ class DbFulltrackBuilder implements Builder<DbFulltrack, DbFulltrackBuilder> {
       _albumReleaseDate = $v.albumReleaseDate;
       _artistId = $v.artistId;
       _artistName = $v.artistName;
-      _discNumber = $v.discNumber?.toBuilder();
+      _discNumber = $v.discNumber;
       _durationMs = $v.durationMs;
       _explicit = $v.explicit;
       _id = $v.id;
       _isrc = $v.isrc;
       _name = $v.name;
-      _popularity = $v.popularity?.toBuilder();
+      _popularity = $v.popularity;
       _previewUrl = $v.previewUrl;
       _spotifyUrl = $v.spotifyUrl;
-      _trackNumber = $v.trackNumber?.toBuilder();
+      _trackNumber = $v.trackNumber;
       _$v = null;
     }
     return this;
@@ -255,44 +249,25 @@ class DbFulltrackBuilder implements Builder<DbFulltrack, DbFulltrackBuilder> {
   DbFulltrack build() => _build();
 
   _$DbFulltrack _build() {
-    _$DbFulltrack _$result;
-    try {
-      _$result = _$v ??
-          new _$DbFulltrack._(
-            albumId: albumId,
-            albumImageUrl: albumImageUrl,
-            albumName: albumName,
-            albumReleaseDate: albumReleaseDate,
-            artistId: artistId,
-            artistName: artistName,
-            discNumber: _discNumber?.build(),
-            durationMs: durationMs,
-            explicit: explicit,
-            id: id,
-            isrc: isrc,
-            name: name,
-            popularity: _popularity?.build(),
-            previewUrl: previewUrl,
-            spotifyUrl: spotifyUrl,
-            trackNumber: _trackNumber?.build(),
-          );
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'discNumber';
-        _discNumber?.build();
-
-        _$failedField = 'popularity';
-        _popularity?.build();
-
-        _$failedField = 'trackNumber';
-        _trackNumber?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'DbFulltrack', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$DbFulltrack._(
+          albumId: albumId,
+          albumImageUrl: albumImageUrl,
+          albumName: albumName,
+          albumReleaseDate: albumReleaseDate,
+          artistId: artistId,
+          artistName: artistName,
+          discNumber: discNumber,
+          durationMs: durationMs,
+          explicit: explicit,
+          id: id,
+          isrc: isrc,
+          name: name,
+          popularity: popularity,
+          previewUrl: previewUrl,
+          spotifyUrl: spotifyUrl,
+          trackNumber: trackNumber,
+        );
     replace(_$result);
     return _$result;
   }
