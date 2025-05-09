@@ -8,3 +8,11 @@ UseQueryResult<Response<Iterable<DbMoodPreset>>, dynamic> useGetMoodPresets() {
 
   return useQuery(["getMoodPresets"], () => moodPresetApi.getMoodPresets());
 }
+
+UseQueryResult<Response<Iterable<DbGetUserSelectedArtistsRow>>, dynamic>
+    useListSelectedArtists() {
+  final profileApi = getIt<ProfileApi>();
+
+  return useQuery(
+      ["listSelectedArtistss"], () => profileApi.listSelectedArtists());
+}

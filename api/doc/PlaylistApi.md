@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **getMonthlyPlaylist**
-> PlaylistsFullPlaylist getMonthlyPlaylist(entryDate)
+> PlaylistsFullPlaylist getMonthlyPlaylist(entryDate, withDay)
 
 Get a playlist
 
@@ -25,9 +25,10 @@ import 'package:moodbeat_core/api.dart';
 
 final api = MoodbeatCore().getPlaylistApi();
 final String entryDate = entryDate_example; // String | Entry date in YYYY-MM-DD format
+final bool withDay = true; // bool | Include day in the response
 
 try {
-    final response = api.getMonthlyPlaylist(entryDate);
+    final response = api.getMonthlyPlaylist(entryDate, withDay);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling PlaylistApi->getMonthlyPlaylist: $e\n');
@@ -39,6 +40,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **entryDate** | **String**| Entry date in YYYY-MM-DD format | 
+ **withDay** | **bool**| Include day in the response | [optional] 
 
 ### Return type
 

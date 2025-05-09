@@ -20,6 +20,8 @@ import 'package:moodbeat_core/src/model/db_diary_entry.dart';
 import 'package:moodbeat_core/src/model/db_fulltrack.dart';
 import 'package:moodbeat_core/src/model/db_genre.dart';
 import 'package:moodbeat_core/src/model/db_get_user_by_id_row.dart';
+import 'package:moodbeat_core/src/model/db_get_user_selected_artists_row.dart';
+import 'package:moodbeat_core/src/model/db_insert_user_selected_artist_row.dart';
 import 'package:moodbeat_core/src/model/db_list_diary_entries_by_date_range_row.dart';
 import 'package:moodbeat_core/src/model/db_list_selected_presets_by_user_row.dart';
 import 'package:moodbeat_core/src/model/db_list_selected_stressful_presets_by_user_row.dart';
@@ -52,6 +54,8 @@ part 'serializers.g.dart';
   DbFulltrack,
   DbGenre,
   DbGetUserByIdRow,
+  DbGetUserSelectedArtistsRow,
+  DbInsertUserSelectedArtistRow,
   DbListDiaryEntriesByDateRangeRow,
   DbListSelectedPresetsByUserRow,
   DbListSelectedStressfulPresetsByUserRow,
@@ -79,6 +83,14 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(DbListDiaryEntriesByDateRangeRow)]),
         () => ListBuilder<DbListDiaryEntriesByDateRangeRow>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(DbInsertUserSelectedArtistRow)]),
+        () => ListBuilder<DbInsertUserSelectedArtistRow>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(DbGetUserSelectedArtistsRow)]),
+        () => ListBuilder<DbGetUserSelectedArtistsRow>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(DbListSelectedStressfulPresetsByUserRow)]),

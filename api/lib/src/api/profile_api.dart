@@ -12,6 +12,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:moodbeat_core/src/api_util.dart';
 import 'package:moodbeat_core/src/model/db_artist.dart';
 import 'package:moodbeat_core/src/model/db_get_user_by_id_row.dart';
+import 'package:moodbeat_core/src/model/db_get_user_selected_artists_row.dart';
+import 'package:moodbeat_core/src/model/db_insert_user_selected_artist_row.dart';
 import 'package:moodbeat_core/src/model/db_list_selected_presets_by_user_row.dart';
 import 'package:moodbeat_core/src/model/db_list_selected_stressful_presets_by_user_row.dart';
 import 'package:moodbeat_core/src/model/db_user_selected_genre.dart';
@@ -591,9 +593,9 @@ class ProfileApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<DbArtist>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<DbGetUserSelectedArtistsRow>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<DbArtist>>> listSelectedArtists({ 
+  Future<Response<BuiltList<DbGetUserSelectedArtistsRow>>> listSelectedArtists({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -622,14 +624,14 @@ class ProfileApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<DbArtist>? _responseData;
+    BuiltList<DbGetUserSelectedArtistsRow>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(DbArtist)]),
-      ) as BuiltList<DbArtist>;
+        specifiedType: const FullType(BuiltList, [FullType(DbGetUserSelectedArtistsRow)]),
+      ) as BuiltList<DbGetUserSelectedArtistsRow>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -641,7 +643,7 @@ class ProfileApi {
       );
     }
 
-    return Response<BuiltList<DbArtist>>(
+    return Response<BuiltList<DbGetUserSelectedArtistsRow>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -811,9 +813,9 @@ class ProfileApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<DbArtist>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<DbInsertUserSelectedArtistRow>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<DbArtist>>> selectArtists({ 
+  Future<Response<BuiltList<DbInsertUserSelectedArtistRow>>> selectArtists({ 
     required ProfileSelectArtistsMutation artists,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -863,14 +865,14 @@ class ProfileApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<DbArtist>? _responseData;
+    BuiltList<DbInsertUserSelectedArtistRow>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(DbArtist)]),
-      ) as BuiltList<DbArtist>;
+        specifiedType: const FullType(BuiltList, [FullType(DbInsertUserSelectedArtistRow)]),
+      ) as BuiltList<DbInsertUserSelectedArtistRow>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -882,7 +884,7 @@ class ProfileApi {
       );
     }
 
-    return Response<BuiltList<DbArtist>>(
+    return Response<BuiltList<DbInsertUserSelectedArtistRow>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

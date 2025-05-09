@@ -381,7 +381,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listSelectedArtists**
-> BuiltList<DbArtist> listSelectedArtists()
+> BuiltList<DbGetUserSelectedArtistsRow> listSelectedArtists()
 
 List selected artists
 
@@ -406,7 +406,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;DbArtist&gt;**](DbArtist.md)
+[**BuiltList&lt;DbGetUserSelectedArtistsRow&gt;**](DbGetUserSelectedArtistsRow.md)
 
 ### Authorization
 
@@ -498,7 +498,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **selectArtists**
-> BuiltList<DbArtist> selectArtists(artists)
+> BuiltList<DbInsertUserSelectedArtistRow> selectArtists(artists)
 
 Select artists
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;DbArtist&gt;**](DbArtist.md)
+[**BuiltList&lt;DbInsertUserSelectedArtistRow&gt;**](DbInsertUserSelectedArtistRow.md)
 
 ### Authorization
 

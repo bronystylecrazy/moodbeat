@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodbeat/animation_wrapper.dart';
@@ -244,14 +245,15 @@ class MyCalendarScreen extends HookWidget {
       backgroundColor: Colors.white,
 
       // ✅ Floating action button
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        shape: const CircleBorder(),
-        onPressed: () {
-          // Handle "+"
-          addMoodForDate(currentDate);
-        },
-        child: const Icon(Icons.add, size: 32, color: Colors.white),
+      floatingActionButton: SizedBox(
+        height: 75,
+        width: 75,
+        child: FloatingActionButton(
+          shape: const CircleBorder(),
+          backgroundColor: Colors.black,
+          child: const Icon(Icons.add, size: 60, color: Colors.white),
+          onPressed: () {},
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
@@ -303,6 +305,7 @@ class MyCalendarScreen extends HookWidget {
                         size: 36, color: Colors.grey),
                     onPressed: () {
                       // Go to Profile
+                      context.push("/setting");
                     },
                   ),
                 ],

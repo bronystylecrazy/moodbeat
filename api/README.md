@@ -102,6 +102,8 @@ Class | Method | HTTP request | Description
  - [DbFulltrack](doc/DbFulltrack.md)
  - [DbGenre](doc/DbGenre.md)
  - [DbGetUserByIdRow](doc/DbGetUserByIdRow.md)
+ - [DbGetUserSelectedArtistsRow](doc/DbGetUserSelectedArtistsRow.md)
+ - [DbInsertUserSelectedArtistRow](doc/DbInsertUserSelectedArtistRow.md)
  - [DbListDiaryEntriesByDateRangeRow](doc/DbListDiaryEntriesByDateRangeRow.md)
  - [DbListSelectedPresetsByUserRow](doc/DbListSelectedPresetsByUserRow.md)
  - [DbListSelectedStressfulPresetsByUserRow](doc/DbListSelectedStressfulPresetsByUserRow.md)

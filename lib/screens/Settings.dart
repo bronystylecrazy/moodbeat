@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -12,7 +15,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // ✅ Floating action button
       floatingActionButton: SizedBox(
         height: 75,
         width: 75,
@@ -23,66 +26,64 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () {},
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              spreadRadius: 1,
-              blurRadius: 10,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // ✅ Bottom navigation bar with backdrop blur
+      bottomNavigationBar: Stack(
+        children: [
+          // This will blur whatever is behind it
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
             ),
-          ],
-        ),
-        child: BottomAppBar(
-          color: const Color.fromARGB(0, 255, 255, 255),
-          elevation: 0,
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 10,
-          height: 75,
-          child: SizedBox(
-            height: 75,
-            child: Row(
-              children: [
-                const Spacer(),
-                IconButton(
-                  icon: Icon(
-                    Icons.home_rounded,
-                    size: 35,
-                    color: _selectedTab == 'home'
-                        ? const Color.fromARGB(255, 0, 0, 0)
-                        : Colors.grey,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+              child: Container(
+                height: 80 + MediaQuery.of(context).padding.bottom,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8), // blackdrop tint
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedTab = 'home';
-                    });
-                  },
                 ),
-                const Spacer(flex: 5),
-                IconButton(
-                  icon: Icon(
-                    Icons.account_circle_rounded,
-                    size: 35,
-                    color: _selectedTab == 'profile'
-                        ? const Color.fromARGB(255, 0, 0, 0)
-                        : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedTab = 'profile';
-                    });
-                  },
-                ),
-                const Spacer(),
-              ],
+              ),
             ),
           ),
-        ),
+
+          // Transparent BottomAppBar on top of the blurred layer
+          BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 8,
+            color: Colors.transparent, // 👈 must be transparent for blur
+            elevation: 0,
+            child: SizedBox(
+              height: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.home_rounded,
+                        size: 36, color: Colors.black),
+                    onPressed: () {
+                      // Go to Home
+                    },
+                  ),
+                  const SizedBox(width: 0),
+                  IconButton(
+                    icon: const Icon(Icons.account_circle_rounded,
+                        size: 36, color: Colors.grey),
+                    onPressed: () {
+                      // Go to Profile
+                      context.push("/setting");
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: Stack(
         children: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodbeat/core/hooks/auth_hook.dart';
 
 class BottomNavBar extends HookWidget {
   final String selectedTab;
@@ -35,7 +37,7 @@ class BottomNavBar extends HookWidget {
               icon: Icon(Icons.home_rounded,
                   size: 35,
                   color: selectedTab == 'home' ? Colors.black : Colors.grey),
-              onPressed: () => onTabChange('home'),
+              onPressed: () => context.push("/calendar"),
             ),
             const Spacer(flex: 5),
             IconButton(
@@ -57,6 +59,10 @@ class ProfileSection extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final query = useCurrentUserQuery();
+    final displayName = query.data?.data?.displayName ?? 'Happy';
+    final avatar = query.data?.data?.avatarUrl;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
@@ -67,11 +73,13 @@ class ProfileSection extends HookWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: ListTile(
-          leading: const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/profile.png'),
+          leading: CircleAvatar(
+            backgroundImage: avatar != null
+                ? NetworkImage(avatar) as ImageProvider<Object>?
+                : const AssetImage('assets/images/profile.png'),
           ),
-          title: const Text(
-            'Happy',
+          title: Text(
+            displayName,
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontFamily: 'Montserrat',
@@ -81,7 +89,9 @@ class ProfileSection extends HookWidget {
           ),
           trailing: const Icon(Icons.arrow_forward_ios,
               size: 16, color: Color(0xFF9188F7)),
-          onTap: () {},
+          onTap: () {
+            context.push('/profile');
+          },
         ),
       ),
     );

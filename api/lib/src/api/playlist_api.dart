@@ -25,6 +25,7 @@ class PlaylistApi {
   ///
   /// Parameters:
   /// * [entryDate] - Entry date in YYYY-MM-DD format
+  /// * [withDay] - Include day in the response
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,6 +37,7 @@ class PlaylistApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<PlaylistsFullPlaylist>> getMonthlyPlaylist({ 
     required String entryDate,
+    bool? withDay,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -56,9 +58,14 @@ class PlaylistApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (withDay != null) r'with_day': encodeQueryParameter(_serializers, withDay, const FullType(bool)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

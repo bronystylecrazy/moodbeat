@@ -25,6 +25,8 @@ export 'package:moodbeat_core/src/model/db_diary_entry.dart';
 export 'package:moodbeat_core/src/model/db_fulltrack.dart';
 export 'package:moodbeat_core/src/model/db_genre.dart';
 export 'package:moodbeat_core/src/model/db_get_user_by_id_row.dart';
+export 'package:moodbeat_core/src/model/db_get_user_selected_artists_row.dart';
+export 'package:moodbeat_core/src/model/db_insert_user_selected_artist_row.dart';
 export 'package:moodbeat_core/src/model/db_list_diary_entries_by_date_range_row.dart';
 export 'package:moodbeat_core/src/model/db_list_selected_presets_by_user_row.dart';
 export 'package:moodbeat_core/src/model/db_list_selected_stressful_presets_by_user_row.dart';

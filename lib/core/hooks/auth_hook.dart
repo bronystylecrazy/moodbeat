@@ -5,7 +5,6 @@ import 'package:moodbeat_core/moodbeat_core.dart';
 
 UseQueryResult<Response<AuthProfileResponse>, dynamic> useCurrentUserQuery() {
   final authApi = getIt<AuthApi>();
-
   return useQuery(["currentUser"], () => authApi.getCurrentProfile());
 }
 
