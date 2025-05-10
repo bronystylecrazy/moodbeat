@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodbeat/animation_wrapper.dart';
+import 'package:moodbeat/mood_selection_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -23,7 +25,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           shape: const CircleBorder(),
           backgroundColor: Colors.black,
           child: const Icon(Icons.add, size: 60, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              createSlideUpRoute(MoodSelectionScreen(date: DateTime.now())),
+            );
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

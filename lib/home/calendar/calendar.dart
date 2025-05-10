@@ -252,7 +252,13 @@ class MyCalendarScreen extends HookWidget {
           shape: const CircleBorder(),
           backgroundColor: Colors.black,
           child: const Icon(Icons.add, size: 60, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            // Show mood selection screen
+            Navigator.push(
+              context,
+              createSlideUpRoute(MoodSelectionScreen(date: currentDate)),
+            );
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
