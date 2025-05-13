@@ -71,6 +71,13 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/icon.png
+  android: true
+  ios: true
 
 flutter_icons:
   image_path: "assets/icon.png"
