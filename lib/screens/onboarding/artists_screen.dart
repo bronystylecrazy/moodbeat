@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodbeat/core/hooks/artist_hook.dart';
 import 'package:moodbeat/screens/onboarding/app_bar_back_and_skip.dart';
 import 'package:moodbeat/screens/onboarding/finish_screen.dart';
@@ -86,7 +87,7 @@ class ArtistsScreen extends HookWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBarBackAndSkip(onBack: () => Navigator.pop(context)),
+      appBar: AppBarBackAndSkip(onBack: () => context.pop()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

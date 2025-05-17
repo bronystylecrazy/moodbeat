@@ -65,17 +65,7 @@ class SigninScreen extends HookWidget {
                 filterQuality: FilterQuality.high,
               ),
               const SizedBox(height: 70),
-              if (isLoading.value)
-                const CircularProgressIndicator()
-              else ...[
-                SpotifyButton(onPressed: loginWithSpotify),
-                const SizedBox(height: 10),
-                GuestButton(
-                  onPressed: () {
-                    context.go('/onboarding/q1');
-                  },
-                ),
-              ]
+              SpotifyButton(onPressed: loginWithSpotify),
             ],
           ),
         ),

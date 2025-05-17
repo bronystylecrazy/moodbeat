@@ -39,20 +39,7 @@ class StressPreferenceScreen extends HookWidget {
     final selectedGenres = useState<Set<String>>({});
     final scrollController = useScrollController();
     void goBack() {
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 300),
-          pageBuilder: (_, __, ___) => const MusicPreferenceScreen(),
-          transitionsBuilder: (_, animation, __, child) => SlideTransition(
-            position: animation.drive(
-              Tween(begin: const Offset(-1.0, 0), end: Offset.zero)
-                  .chain(CurveTween(curve: Curves.easeInOut)),
-            ),
-            child: child,
-          ),
-        ),
-      );
+      context.pop();
     }
 
     void goNext() async {

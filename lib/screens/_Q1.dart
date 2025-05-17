@@ -56,10 +56,7 @@ class MusicPreferenceScreen extends HookWidget {
             size: 32,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Sigmin()),
-            );
+            context.pop();
           },
         ),
         actions: const [
@@ -124,7 +121,7 @@ class MusicPreferenceScreen extends HookWidget {
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Welcome to',
+                                      text: 'Welcome to ',
                                       style: TextStyle(
                                         color: Color(0xFF3F3F3F),
                                         fontSize: 36,
@@ -133,7 +130,7 @@ class MusicPreferenceScreen extends HookWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: 'MoodBeats',
+                                      text: 'MoodBeat',
                                       style: TextStyle(
                                         color: Color(0xFF9188F7),
                                         fontSize: 36,

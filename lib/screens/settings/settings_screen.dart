@@ -101,10 +101,9 @@ class SettingsScreen extends HookWidget {
           //     icon: Icons.wallpaper, title: 'Background', subtitle: 'Default'),
           const SectionTitle('Setting'),
           NextTile(
-            icon: Icons.music_note,
-            title: 'Music Preference',
-            onTap: () => print('Font Style'),
-          ),
+              icon: Icons.music_note,
+              title: 'Music Preference',
+              onTap: () => context.push("/onboarding")),
           NextTile(
             icon: Icons.person_off,
             title: 'Hide Artist',
