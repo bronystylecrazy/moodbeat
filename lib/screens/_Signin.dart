@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:moodbeat/config.dart';
 import 'package:moodbeat/screens/_Q1.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:http/http.dart' as http;
+import 'package:moodbeat/service_locator.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +33,7 @@ class Sigmin extends StatefulWidget {
 
 class _SigminState extends State<Sigmin> {
   bool isLoading = false;
+  IConfig config = getIt.get<IConfig>();
 
   Future<void> _loginWithSpotify(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,7 +57,7 @@ class _SigminState extends State<Sigmin> {
     try {
       // Authenticate user with Spotify
       final result = await FlutterWebAuth2.authenticate(
-        url: "https://moodbeat-api.devsirawit.com/authorize",
+        url: "${config.apiBaseUrl}/authorize",
         callbackUrlScheme: "moodbeat",
       );
 

@@ -7,5 +7,5 @@ abstract class IConfig {
 @LazySingleton(as: IConfig)
 class AppConfig implements IConfig {
   @override
-  String get apiBaseUrl => "https://moodbeat-api.devsirawit.com";
+  String get apiBaseUrl => "http://localhost:8080";
 }
